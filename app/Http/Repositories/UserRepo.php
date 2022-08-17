@@ -13,6 +13,7 @@ class UserRepo implements UserInterface
     protected $models = ['users','categories' ,'products'];
     use ImagesTriat;
 
+
     public function __construct()
     {
       /*  $this->middleware(['permissions:read_users'])->only('index');
@@ -31,11 +32,11 @@ class UserRepo implements UserInterface
                {
                    return $query->where('first_name' , 'like' , '%' . $request->search . '%')
                        ->orWhere('last_name' ,'like' , '%' .$request->search . '%');
-               }) ;
-            })->get();
+               });
+            })->with('roles')->paginate(3);
         }
         else{
-            $users = User::get();
+            $users = User::with('roles')->paginate(3);
         }
         return view('admin.pages.users.index' , compact('users'));
 
@@ -47,16 +48,23 @@ class UserRepo implements UserInterface
     }
     public function store($request)
     {
-        $image = $request->image;
-        $imageName = time() . '_user.jpg';
-        $this->UploadImage($image, $imageName,'user');
+        if($request->has('image'))
+        {
+            $image = $request->image;
+            $imageName = time() . '_user.jpg';
+            $this->UploadImage($image, $imageName,'user');
+        }
+        else{
+            $imageName = $request->imageUrl;
+        }
+
         $user = User::create(
             [
-                'first_name' => $request->first_name,
-                'last_name' => $request->last_name,
-                'email'        => $request->email,
-                'password' => Hash::make($request->password),
-                'image'     =>   $imageName,
+                'first_name'     => $request->first_name,
+                'last_name'      => $request->last_name,
+                'email'          => $request->email,
+                'password'       => Hash::make($request->password),
+                'image'          =>  $imageName,
             ]
         );
         $user->attachRole('admin');
@@ -67,8 +75,6 @@ class UserRepo implements UserInterface
         Alert::success('Create User ', 'Create User Successfully !');
         return redirect()->back();
     }
-
-
     public function edit($id)
     {
         $user = User::find($id);
@@ -81,7 +87,7 @@ class UserRepo implements UserInterface
         if($request->has('image'))
         {
             $image = $request->image;
-            $imageName = time() . 'user.' . $request->image->extension();
+            $imageName = time() . '_user.' . $request->image->extension();
             $this->UploadImage($image, $imageName,'user' , $user->imageUrl);
         }
         $user->update(
@@ -99,17 +105,16 @@ class UserRepo implements UserInterface
     public function delete($request)
     {
             $user = User::find($request->user_id);
-            $imageName = explode('\\',$user->imageUrl);
-            $imageName= $imageName[count($imageName)-1];
+            /*$imageName = explode('\\',$user->imageUrl);
+            $imageName= $imageName[count($imageName)-1];*/
 
-          if($imageName == '')
+
+          if(file_exists(public_path($user->imageUrl)))
             {
-                $user->delete();
-            }
-            else{
                 unlink(public_path($user->imageUrl));
-                $user->delete();
             }
+            $user->delete();
+
         return redirect(route('admin.users.index'));
     }
 }

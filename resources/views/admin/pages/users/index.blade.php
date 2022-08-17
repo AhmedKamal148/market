@@ -1,15 +1,30 @@
 @extends('admin.master')
+@section('header')
+    <div class="row mb-2">
+        <div class="col-sm-6">
+
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="{{route('admin.index')}}">Home</a></li>
+                <li class="breadcrumb-item active">Users</li>
+            </ol>
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+@endsection
 @section('content')
     <div class="row">
         <div class="col">
             <div class="users_table card card-danger card-outline ">
                 <div  class="card-header d-flex justify-content-between align-items-center">
-                    <h3> Users</h3>
+                    <h3> Users <small>{{$users->total()}}</small></h3>
+
                     <div class="search_block ml-auto">
                         <div class="card-tools">
                             <form action="{{route('admin.users.index')}}" method="get">
                               <div class="input-group input-group-sm">
-                                <input type="text" class="form-control" name="search" placeholder="Search Users">
+                                <input type="text" class="form-control" name="search" placeholder="Search Users"
+                                       value="{{request()->search}}">
                                 <div class="input-group-append">
                                     <button type="submit" class="btn btn-primary">
                                         <i class="fas fa-search"></i>
@@ -36,10 +51,7 @@
                                                 <p class="text-muted text-sm"><b>Email: </b> {{$user->email}}</p>
                                             </div>
                                             <hr>
-                                            <p class="text-muted text-sm"><b>Permissions: </b></p>
-                                            <form>
-                                        {{--  Will Show Here Permission Of User --}}
-                                            </form>
+                                            <p class="text-muted text-sm"><b>Role :</b></p>
                                         </div>
                                         <div class="col-4 text-center">
                                             <div class="user_image">
@@ -94,14 +106,19 @@
                                 </div>
                             </div>
                         </div>
+
                         @endforeach
                     </div>
                 </div>
 
 
-                <div class="card-footer">
+                <div class="card-footer d-flex justify-content-between">
+
                     @if(auth()->user()->hasPermission('create_users'))
                     <a  class="btn btn-lg btn-outline-dark" href="{{route('admin.users.create')}}">Create User</a>
+                    <div class="pageination_div ml-auto">
+                        {{$users->appends(request()->query())->links()}}
+                    </div>
                     @else
                         <a  class="btn btn-lg btn-outline-dark disabled "  href="#" >Create User</a>
                     @endif

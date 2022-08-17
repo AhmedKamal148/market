@@ -15,7 +15,7 @@ class AdminController extends Controller
         return $this->adminInterface = $adminInterface;
     }
 
-    public function index()
+    public function index(Request $request)
     {
         return  view('admin.pages.home');
     }

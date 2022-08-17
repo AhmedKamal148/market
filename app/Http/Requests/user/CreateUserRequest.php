@@ -22,9 +22,10 @@ class CreateUserRequest extends FormRequest
         return [
             'first_name'            =>       'required|min:4',
             'last_name'             =>       'required|min:4',
-            'email'                 =>       'required|unique:App\Models\User,email',
+            'email'                 =>       'required|unique:users,email',
             'password'              =>       'required|confirmed',
-            'image'                 =>       'required',
+            'image'                 =>        'image',
+
         ];
     }
 }

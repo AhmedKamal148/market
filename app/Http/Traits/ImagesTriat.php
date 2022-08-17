@@ -19,21 +19,17 @@ trait ImagesTriat
     {
         $file->move(public_path('images/' . $path),$fileName);
 
-        $imageName = explode('\\ ',$fileExist);
-        $imageName= $imageName[count($imageName)-1];
-
         if(!is_null($fileExist))
         {
-
-                if(str_contains($fileExist , '.jpg')||str_contains($fileExist , '.png') ||str_contains($fileExist , '.jpeg')){
-                    unlink(public_path($fileExist));
-                }else{
-                    $fileExist = null;
+                if(file_exists(public_path($fileExist)) && is_file($fileExist)){
+                    if(str_contains(file_exists(public_path($fileExist)), 'avatar.jpg'))
+                    {
+                        return;
+                    }
+                    else{
+                        unlink(public_path($fileExist));
+                    }
                 }
-
-
         }
-
-
     }
 }
