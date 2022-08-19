@@ -69,6 +69,17 @@
 
                     </li>
                 @endif
+                @if(auth()->user()->hasPermission('read_categories'))
+                    <li class="nav-item">
+                        <a href="{{route('admin.product.index')}}" class="nav-link ">
+                            <i class=" nav-icon fas fa-dice-d6"></i>
+                            <p>
+                                Product
+                            </p>
+                        </a>
+
+                    </li>
+                @endif
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

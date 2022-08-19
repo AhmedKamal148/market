@@ -11,18 +11,12 @@ class CategoryRepo implements CategoryInterface
 
     public function index($request)
     {
-
-        if($request->has('search_category'))
-        {
-            $categories = Category::where(function ($query) use ($request)
+        $categories = Category::all();
+        $categories = Category::where(function ($query) use ($request)
             {
                 return $query->where('name' ,'like' ,'%' . $request->search_category . '%');
-;
             })->paginate(5);
-        }
-        else{
-            $categories = Category::paginate(5);
-        }
+
         return  view('admin.pages.category.index',compact('categories'));
     }
     public function create()
@@ -44,7 +38,6 @@ class CategoryRepo implements CategoryInterface
     }
     public function update($request)
     {
-
 
    $category = Category::find($request->category_id);
 

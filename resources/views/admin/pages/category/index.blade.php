@@ -39,16 +39,16 @@
                         <div class="col">
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="font-weight-bold"> Categories <small class="font-weight-bold">{{$categories->total()
-                                    }}</small></h3>
+                                    <h3 class="font-weight-bold"> Categories <small class="font-weight-bold">{{$categories->total()}}</small></h3>
 
                                 </div>
                                 <div class="card-body">
-                                    <table class="table table-bordered">
-                                        <thead>
+                                    <table class="table table-striped font-weight-bold text-capitalize">
+                                        <thead class="thead-dark">
                                         <tr>
                                             <th style="width: 10px">#</th>
                                             <th>Name</th>
+                                            <th>Related Products</th>
                                             @if(count($categories) >0)
                                             <th class="text-success">
                                                 Edit
@@ -64,6 +64,15 @@
                                             <tr>
                                                 <td >{{$category->id}}</td>
                                                 <td class="font-weight-bold text-capitalize">{{$category->name}}</td>
+                                                <td class="font-weight-bold text-capitalize">
+                                                    <form action="{{route('admin.product.index')}}" method="get">
+                                                        <input type="hidden" value="{{$category->id}}" name="category_id">
+                                                        <button type="submit" class="btn btn-lg btn-outline-primary">
+                                                            Products
+                                                        </button>
+                                                    </form>
+
+                                                </td>
                                                 @if(count($categories) > 0)
                                                     <td class="text-success">
                                                         <a class="btn btn-lg btn-outline-success font-weight-bold"

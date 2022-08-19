@@ -3,84 +3,63 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Interfaces\ProductInterface;
+use App\Http\Requests\product\CreateProductRequest;
+use App\Http\Requests\product\DeleteProductRequest;
 use App\Models\product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+
+    protected $productInterface;
+
+    public function __construct(ProductInterface $productInterface)
     {
-        //
+        return $this->productInterface = $productInterface;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function index(Request $request)
+    {
+        return $this->productInterface->index($request);
+    }
+
+
     public function create()
     {
-        //
+        return $this->productInterface->create();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+
+    public function store(CreateProductRequest $request)
     {
-        //
+        return $this->productInterface->store($request);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\product  $product
-     * @return \Illuminate\Http\Response
-     */
+
     public function show(product $product)
     {
-        //
+        return $this->productInterface->show($product);
+
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(product $product)
+
+    public function edit($id)
     {
-        //
+        return $this->productInterface->edit($id);
+
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, product $product)
+
+    public function update(Request $request)
     {
-        //
+        return $this->productInterface->update($request);
+
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(product $product)
+
+    public function delete(DeleteProductRequest $request)
     {
-        //
+        return $this->productInterface->delete($request);
     }
 }
