@@ -30,7 +30,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], fu
         Route::post('store', [UsersController::class, 'store'])->name('store');
         Route::get('edit/{user_id}', [UsersController::class, 'edit'])->name('edit');
         Route::put('update', [UsersController::class, 'update'])->name('update');
-        Route::delete('delete/{$product}', [UsersController::class, 'delete'])->name('delete');
+        Route::delete('delete', [UsersController::class, 'delete'])->name('delete');
     });
 
     /******************************** Categories *******************************/

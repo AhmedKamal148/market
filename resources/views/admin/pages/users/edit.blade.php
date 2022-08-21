@@ -17,7 +17,7 @@
         <div class="col">
             <div class="create_user card card-primary  card-outline">
                 <div class="card-header">
-                    <h3 >Update User</h3>
+                    <h3>Update User</h3>
                 </div>
                 @if($errors->any())
                     <div class="card card-body ">
@@ -37,28 +37,28 @@
                     <div class="card-body ">
                         <div class="form-group">
                             <label for="firstName">First Name</label>
-                            <input  name="first_name"
-                                    type="text"
-                                    class="form-control"
-                                    id="firstName"
-                                    value="{{$user->first_name}}">
+                            <input name="first_name"
+                                   type="text"
+                                   class="form-control"
+                                   id="firstName"
+                                   value="{{$user->first_name}}">
                         </div>
                         <div class="form-group">
                             <label for="lastName">Last Name</label>
-                            <input  name="last_name"
+                            <input name="last_name"
 
-                                    type="text"
-                                    class="form-control"
-                                    id="lastName"
-                                    value="{{$user->last_name}}">
+                                   type="text"
+                                   class="form-control"
+                                   id="lastName"
+                                   value="{{$user->last_name}}">
                         </div>
                         <div class="form-group">
                             <label for="password">Enter New Password</label>
-                            <input   name="password"
-                                     type="password"
-                                     class="form-control"
-                                     id="password"
-                                     placeholder="Enter New Password">
+                            <input name="password"
+                                   type="password"
+                                   class="form-control"
+                                   id="password"
+                                   placeholder="Enter New Password">
                         </div>
                         <div class="form-group">
                             <label for="passwordConfirmation">Confirm New Password</label>
@@ -75,13 +75,21 @@
                                     <input type="file" class="custom-file-input" id="image" name="image">
                                     <label class="custom-file-label" for="image">Choose file</label>
                                 </div>
+
                                 <div class="input-group-append">
                                     <span class="input-group-text">Upload</span>
                                 </div>
+
                             </div>
                         </div>
+                        <div class="form-group">
+                            <img src="{{asset($user->imageUrl)}}"
+                                 id="image_preview"
+                                 class="img-thumbnail"
+                                 width="100px"/>
+                        </div>
                         <div class="permissions">
-                            <h4 class=" "><b>Permissions: </b> </h4>
+                            <h4 class=" "><b>Permissions: </b></h4>
                             <div class="permissions_content d-flex justify-content-between flex-column">
                                 @foreach($models as $model)
                                     <ul class="list-unstyled">
@@ -93,13 +101,13 @@
                                                     <div class="form-group">
                                                         <div class="custom-control custom-switch">
                                                             @if($user->haspermission("create_$model"))
-                                                            <input type="checkbox" name="permissions[]"
-                                                                   value="create_{{$model}}"
-                                                                   class="custom-control-input
+                                                                <input type="checkbox" name="permissions[]"
+                                                                       value="create_{{$model}}"
+                                                                       class="custom-control-input
                                                                    custom-control-input-primary"
-                                                                   id="createSwitch1{{$model}}"
-                                                                   checked
-                                                            />
+                                                                       id="createSwitch1{{$model}}"
+                                                                       checked
+                                                                />
                                                             @else
                                                                 <input type="checkbox" name="permissions[]"
                                                                        value="create_{{$model}}"
@@ -118,13 +126,13 @@
                                                     <div class="form-group">
                                                         <div class="custom-control custom-switch">
                                                             @if($user->haspermission("read_$model"))
-                                                            <input type="checkbox" name="permissions[]"
-                                                                   value="read_{{$model}}"
-                                                                   class="custom-control-input
+                                                                <input type="checkbox" name="permissions[]"
+                                                                       value="read_{{$model}}"
+                                                                       class="custom-control-input
                                                                 custom-control-input-fuchsia"
-                                                                   id="readSwitch2{{$model}}"
-                                                                    checked
-                                                            />
+                                                                       id="readSwitch2{{$model}}"
+                                                                       checked
+                                                                />
                                                             @else
                                                                 <input type="checkbox" name="permissions[]"
                                                                        value="read_{{$model}}"
@@ -144,14 +152,16 @@
                                                     <div class="form-group">
                                                         <div class="custom-control custom-switch">
                                                             @if($user->haspermission("update_$model"))
-                                                            <input type="checkbox" name="permissions[]" value="update_{{$model}}"
-                                                                   class="custom-control-input
+                                                                <input type="checkbox" name="permissions[]"
+                                                                       value="update_{{$model}}"
+                                                                       class="custom-control-input
                                                                 custom-control-input-success"
-                                                                   id="updateSwitch3{{$model}}"
-                                                                    checked
-                                                            />
+                                                                       id="updateSwitch3{{$model}}"
+                                                                       checked
+                                                                />
                                                             @else
-                                                                <input type="checkbox" name="permissions[]" value="update_{{$model}}"
+                                                                <input type="checkbox" name="permissions[]"
+                                                                       value="update_{{$model}}"
                                                                        class="custom-control-input
                                                                 custom-control-input-success"
                                                                        id="updateSwitch3{{$model}}"
@@ -167,14 +177,16 @@
                                                     <div class="form-group">
                                                         <div class="custom-control custom-switch">
                                                             @if($user->haspermission("delete_$model"))
-                                                            <input type="checkbox" name="permissions[]" value="delete_{{$model}}"
-                                                                   class="custom-control-input
+                                                                <input type="checkbox" name="permissions[]"
+                                                                       value="delete_{{$model}}"
+                                                                       class="custom-control-input
                                                                 custom-control-input-danger"
-                                                                   id="deleteSwitch4{{$model}}"
-                                                                   checked
-                                                            />
+                                                                       id="deleteSwitch4{{$model}}"
+                                                                       checked
+                                                                />
                                                             @else
-                                                                <input type="checkbox" name="permissions[]" value="delete_{{$model}}"
+                                                                <input type="checkbox" name="permissions[]"
+                                                                       value="delete_{{$model}}"
                                                                        class="custom-control-input
                                                                 custom-control-input-danger"
                                                                        id="deleteSwitch4{{$model}}"

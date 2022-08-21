@@ -17,7 +17,7 @@
         <div class="col">
             <div class="create_user card card-primary  card-outline">
                 <div class="card-header">
-                    <h3 >Create User</h3>
+                    <h3>Create User</h3>
                 </div>
                 @if($errors->any())
                     <div class="card card-body ">
@@ -31,49 +31,49 @@
                     </div>
                 @endif
                 <form action="{{route('admin.users.store')}}" method="post" enctype="multipart/form-data">
-                        @csrf
+                    @csrf
                     <div class="card-body ">
                         <div class="form-group">
                             <label for="firstName">First Name</label>
-                            <input  name="first_name"
-                                    required
-                                    type="text"
-                                    class="form-control"
-                                    id="firstName"
-                                    placeholder="First Name">
+                            <input name="first_name"
+                                   required
+                                   type="text"
+                                   class="form-control"
+                                   id="firstName"
+                                   placeholder="First Name">
                         </div>
                         <div class="form-group">
                             <label for="lastName">Last Name</label>
-                            <input  name="last_name"
-                                    required
-                                    type="text"
-                                    class="form-control"
-                                    id="lastName"
-                                    placeholder="Last Name">
+                            <input name="last_name"
+                                   required
+                                   type="text"
+                                   class="form-control"
+                                   id="lastName"
+                                   placeholder="Last Name">
                         </div>
-                            <div class="form-group">
-                                <label for="email">Email address</label>
-                                <input  name="email"
-                                        required
-                                        type="email"
-                                        class="form-control"
-                                        id="email"
-                                        placeholder="Email">
-                            </div>
-                            <div class="form-group">
-                                <label for="password">Password</label>
-                                <input   name="password"
-                                        required
-                                        type="password"
-                                        class="form-control"
-                                        id="password"
-                                         placeholder="Password">
-                            </div>
+                        <div class="form-group">
+                            <label for="email">Email address</label>
+                            <input name="email"
+                                   required
+                                   type="email"
+                                   class="form-control"
+                                   id="email"
+                                   placeholder="Email">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input name="password"
+                                   required
+                                   type="password"
+                                   class="form-control"
+                                   id="password"
+                                   placeholder="Password">
+                        </div>
                         <div class="form-group">
                             <label for="passwordConfirmation">Confirm Password</label>
                             <input name="password_confirmation"
-                                    required
-                                    type="password"
+                                   required
+                                   type="password"
                                    class="form-control"
                                    id="passwordConfirmation"
                                    placeholder="Re-Enter Password">
@@ -90,71 +90,81 @@
                                 </div>
                             </div>
                         </div>
+                        {{--Preview Image--}}
+                        <div class="form-group">
+                            <img src="{{asset('images/user/default.jpg')}}"
+                                 id="image_preview"
+                                 class="img-thumbnail"
+                                 width="100px"/>
+                        </div>
+
                         <hr>
                         {{--*********************** permissions *********************--}}
                         <div class="permissions">
-                            <h4 class=" "><b>Permissions: </b> </h4>
+                            <h4 class=" "><b>Permissions: </b></h4>
                             <div class="permissions_content d-flex justify-content-between  flex-column">
                                 @foreach($models as $model)
-                                <ul class="list-unstyled">
-                                    <li>
-                                        <h4 class="text-capitalize font-weight-bold ">{{$model}}</h4>
-                                        <ul class="list-unstyled ml-1">
-                                            <li>
-                                                <div class="form-group">
-                                                    <div class="custom-control custom-switch">
-                                                        <input type="checkbox" name="permissions[]"
-                                                               value="create_{{$model}}"
-                                                               class="custom-control-input
+                                    <ul class="list-unstyled">
+                                        <li>
+                                            <h4 class="text-capitalize font-weight-bold ">{{$model}}</h4>
+                                            <ul class="list-unstyled ml-1">
+                                                <li>
+                                                    <div class="form-group">
+                                                        <div class="custom-control custom-switch">
+                                                            <input type="checkbox" name="permissions[]"
+                                                                   value="create_{{$model}}"
+                                                                   class="custom-control-input
                                                                 custom-control-input-primary"
-                                                               id="createSwitch1{{$model}}">
-                                                        <label class="custom-control-label text-muted"
-                                                               for="createSwitch1{{$model}}">Create</label>
+                                                                   id="createSwitch1{{$model}}">
+                                                            <label class="custom-control-label text-muted"
+                                                                   for="createSwitch1{{$model}}">Create</label>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="form-group">
-                                                    <div class="custom-control custom-switch">
-                                                        <input type="checkbox" name="permissions[]"
-                                                               value="read_{{$model}}"
-                                                               class="custom-control-input
+                                                </li>
+                                                <li>
+                                                    <div class="form-group">
+                                                        <div class="custom-control custom-switch">
+                                                            <input type="checkbox" name="permissions[]"
+                                                                   value="read_{{$model}}"
+                                                                   class="custom-control-input
                                                                 custom-control-input-fuchsia"
-                                                               id="readSwitch2{{$model}}">
-                                                        <label class="custom-control-label text-muted"
-                                                               for="readSwitch2{{$model}}">Read</label>
+                                                                   id="readSwitch2{{$model}}">
+                                                            <label class="custom-control-label text-muted"
+                                                                   for="readSwitch2{{$model}}">Read</label>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="form-group">
-                                                    <div class="custom-control custom-switch">
-                                                        <input type="checkbox" name="permissions[]" value="update_{{$model}}"
-                                                               class="custom-control-input
+                                                </li>
+                                                <li>
+                                                    <div class="form-group">
+                                                        <div class="custom-control custom-switch">
+                                                            <input type="checkbox" name="permissions[]"
+                                                                   value="update_{{$model}}"
+                                                                   class="custom-control-input
                                                                 custom-control-input-success"
-                                                               id="updateSwitch3{{$model}}">
-                                                        <label class="custom-control-label text-muted"
-                                                               for="updateSwitch3{{$model}}">Update</label>
+                                                                   id="updateSwitch3{{$model}}">
+                                                            <label class="custom-control-label text-muted"
+                                                                   for="updateSwitch3{{$model}}">Update</label>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="form-group">
-                                                    <div class="custom-control custom-switch">
-                                                        <input type="checkbox" name="permissions[]" value="delete_{{$model}}"
-                                                               class="custom-control-input
+                                                </li>
+                                                <li>
+                                                    <div class="form-group">
+                                                        <div class="custom-control custom-switch">
+                                                            <input type="checkbox" name="permissions[]"
+                                                                   value="delete_{{$model}}"
+                                                                   class="custom-control-input
                                                                 custom-control-input-danger"
-                                                               id="deleteSwitch4{{$model}}">
-                                                        <label class="custom-control-label text-muted"
-                                                               for="deleteSwitch4{{$model}}">Delete</label>
+                                                                   id="deleteSwitch4{{$model}}">
+                                                            <label class="custom-control-label text-muted"
+                                                                   for="deleteSwitch4{{$model}}">Delete</label>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                        <hr>
-                                    </li>
+                                                </li>
+                                            </ul>
+                                            <hr>
+                                        </li>
 
-                                </ul>
+                                    </ul>
                                 @endforeach
                             </div>
                         </div>
