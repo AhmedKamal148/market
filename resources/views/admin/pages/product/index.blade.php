@@ -35,7 +35,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-3  ">
+                            <div class="col-3 ">
                                 <div class="select_group">
                                     <select name="category_id"
                                             class=" font-weight-bold custom-select form-control-border b-3 border-primary">
@@ -50,10 +50,9 @@
                                     </select>
                                 </div>
                             </div>
-
                             <div class="clearfix"></div>
                         </div>
-                        s
+
                     </form>
 
                 </div>

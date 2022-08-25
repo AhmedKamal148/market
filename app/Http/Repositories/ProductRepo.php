@@ -6,6 +6,8 @@ namespace App\Http\Repositories;
 use App\Http\Interfaces\ProductInterface;
 use App\Models\Category;
 use App\Models\Product;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 use RealRashid\SweetAlert\Facades\Alert;
 
 
@@ -32,8 +34,10 @@ class ProductRepo implements ProductInterface
     {
 
         if ($request->has('image')) {
-            $image = $request->image;
-            $imageName = time() . '_product' . $request->image->extension();
+            $image = Image::make($request->image);
+            $imageName = $request->image->hashName();
+            $image->save(public_path('images/product/') . $imageName, 100, $request->image->extension());
+
         }
         $product = Product::create(
             [
@@ -42,7 +46,7 @@ class ProductRepo implements ProductInterface
                 'purchase_price' => $request->purchase_price,
                 'sale_price' => $request->sale_price,
                 'stock' => $request->stock,
-//                'image' => (isset($imageName)) ? $imageName : null,
+                'image' => (isset($imageName)) ? $imageName : 'default.jpg',
                 'description' => $request->description,
             ]
         );
@@ -58,34 +62,51 @@ class ProductRepo implements ProductInterface
 
     public function edit($id)
     {
-        $product = Product::find($id);
-        return view('admin.pages.product.edit', compact('product'));
+        $product = Product::with('category')->find($id);
+        $categories = Category::all();
+
+        return view('admin.pages.product.edit', compact('product', 'categories'));
     }
 
     public function update($request)
     {
-        /*        $product = Product::find($request->product_id);
-                if ($request->has('image')) {
-                    $image = $request->image;
-                    $imageName = time() . '_product.' . $request->image->extension();
-                    if ($image->getClientOriginalName() == 'default.jpg') {
 
-                    } else {
+        $product = Product::find($request->product_id);
+        // Check If Request Has Image && Image Not Equal Default Image ;
+        if ($request->has('image')) {
+            if ($product->image != 'default.jpg') {
+                Storage::disk('public_uploads')->delete('/product/' . $product->image);
+            }
+            $img = Image::make($request->image);
+            $imageName = $request->image->hashName();
+            $img->save(public_path('images/product/') . $imageName, 100, $request->image->extension());
+        }
+        $product->update([
+            'name' => $request->name,
+            'category_id' => $request->category_id,
+            'purchase_price' => $request->purchase_price,
+            'sale_price' => $request->sale_price,
+            'stock' => $request->stock,
+            'image' => (isset($imageName)) ? $imageName : $product->imageUrl,
+            'description' => $request->description,
 
-                    }
-                }
-                $imageStore = (isset($imageName)) ? $imageName : $product->image;
-                $request->merge(['imageUrl' => $imageStore]);
-                $product->update([$request]);
-                Alert::success("Update Product", "Updated Successfully !");
-                return redirect(route('admin.product.index'));*/
+        ]);
+
+        Alert::success("Update Product", "Updated Successfully !");
+        return redirect(route('admin.product.index'));
 
     }
 
     public function delete($request)
     {
         $product = Product::find($request->product_id);
+
+        if ($product->image != 'default.jpg') {
+
+            Storage::disk('public_uploads')->delete('/product/' . $product->image);
+        }
         $product->delete();
+
         Alert::error('Delete Product', 'Deleted Successfully!');
         return redirect()->route('admin.product.index');
     }

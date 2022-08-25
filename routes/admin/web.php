@@ -52,7 +52,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], fu
         Route::delete('delete', [ProductController::class, 'delete'])->name('delete');
 
     });
+    /******************************** Clients *********************************/
 
+    Route::group(['prefix' => 'client', 'as' => 'client.', 'namespace' => 'App\Http\Controllers\Dashboard\\'], function () {
+        Route::resource('', 'ClientController');
+
+    });
 
 });
 

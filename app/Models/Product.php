@@ -39,21 +39,7 @@ class Product extends Model
     /***************** Accessories *****************/
     public function getImageUrlAttribute()
     {
-        $this->fullPath = $this->path . $this->image;
-
-        if (file_exists($this->fullPath)) {
-            if (str_contains($this->fullPath, 'jpg') ||
-                str_contains($this->fullPath, 'png') ||
-                str_contains($this->fullPath, 'jpeg')) {
-                return $this->fullPath;
-            } else {
-                // return default image if $fullPath return 'images\product\' ;
-                return 'images/product/default.jpg';
-            }
-        } else {
-            // return default image if $fullPath don't Return AnyThing;
-            return 'images/product/default.jpg';
-        }
+        return 'images/product/' . $this->image;
     }
 
     public function getProfitPercentAttribute()

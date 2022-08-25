@@ -17,7 +17,7 @@
         <div class="col">
             <div class="create_user card card-primary  card-outline">
                 <div class="card-header">
-                    <h3 >Update Product</h3>
+                    <h3>Update Product</h3>
                 </div>
                 @if($errors->any())
                     <div class="card card-body ">
@@ -37,59 +37,76 @@
                     <div class="card-body ">
                         <div class="form-group">
                             <label for="name">Name</label>
-                            <input  name="name"
-                                    type="text"
-                                    class="form-control"
-                                    id="name"
-                                    value="{{$product->name}}"
-                                    >
+                            <input name="name"
+                                   type="text"
+                                   class="form-control"
+                                   id="name"
+                                   value="{{$product->name}}"
+                            >
 
+                        </div>
+
+                        <div class="form-group">
+                            <label>Categories</label>
+                            <select class="form-control" name="category_id">
+                                <option value="{{$product->category->id}}">{{$product->category->name}}</option>
+                                @foreach($categories as $category)
+                                    <option value="{{$category->id}}">{{$category->name}}</option>
+                                @endforeach
+                            </select>
                         </div>
 
                         <div class="form-group">
                             <label for="purchase_price">Purchase Price</label>
-                            <input  name="purchase_price"
-                                    type="number"
-                                    class="form-control"
-                                    id="purchase_price"
-                                    placeholder="Purchase Price"
-                                    value="{{$product->purchase_price}}"
+                            <input name="purchase_price"
+                                   type="number"
+                                   class="form-control"
+                                   id="purchase_price"
+                                   placeholder="Purchase Price"
+                                   value="{{$product->purchase_price}}"
                             >
                         </div>
                         <div class="form-group">
                             <label for="sale_price">Sale Price</label>
-                            <input  name="sale_price"
-                                    type="number"
-                                    class="form-control"
-                                    id="sale_price"
-                                    placeholder="Sale Price"
-                                    value="{{$product->sale_price}}"
-                                    >
+                            <input name="sale_price"
+                                   type="number"
+                                   class="form-control"
+                                   id="sale_price"
+                                   placeholder="Sale Price"
+                                   value="{{$product->sale_price}}"
+                            >
                         </div>
                         <div class="form-group">
                             <label for="stock">Stock</label>
-                            <input  name="stock"
-                                    type="number"
-                                    class="form-control"
-                                    id="stock"
-                                    placeholder="Stock"
-                                    value="{{$product->stock}}"
-                                    />
+                            <input name="stock"
+                                   type="number"
+                                   class="form-control"
+                                   id="stock"
+                                   placeholder="Stock"
+                                   value="{{$product->stock}}"
+                            />
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputFile">Upload Image</label>
+                            <label for="image">Upload Image</label>
                             <div class="input-group">
                                 <div class="custom-file">
                                     <input name="image"
                                            type="file"
                                            class="custom-file-input"
-                                           id="exampleInputFile">
-                                    <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                           id="image">
+                                    <label class="custom-file-label" for="image">Choose file</label>
                                 </div>
                                 <div class="input-group-append">
                                     <span class="input-group-text">Upload</span>
                                 </div>
                             </div>
+                        </div>
+                        {{--Preview Image--}}
+                        <div class="form-group">
+                            <img src="{{asset($product->imageUrl)}}"
+                                 id="image_preview"
+                                 class="img-thumbnail"
+                                 width="100px"/>
                         </div>
                         <div class="form-group">
                             <label>Description</label>
@@ -97,7 +114,7 @@
                                       class="form-control"
                                       rows="3"
                                       placeholder="Enter Description"
-                                      >{{$product->description}} </textarea>
+                            >{{$product->description}} </textarea>
                         </div>
                     </div>
                     <div class="card-footer">
