@@ -4,8 +4,12 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Interfaces\ClientInterface;
+use App\Http\Requests\client\CreateClientRequest;
+use App\Http\Requests\client\DeleteClientRequest;
+use App\Http\Requests\client\UpdateClientRequest;
 use App\Models\client;
 use Illuminate\Http\Request;
+
 
 class ClientController extends Controller
 {
@@ -17,14 +21,14 @@ class ClientController extends Controller
         return $this->clientInterface = $clientInterface;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return $this->clientInterface->index();
+        return $this->clientInterface->index($request);
     }
 
-    public function store(Request $request)
+    public function store(CreateClientRequest $request)
     {
-        return $this->clientInterface->create();
+        return $this->clientInterface->store($request);
 
     }
 
@@ -34,30 +38,31 @@ class ClientController extends Controller
 
     }
 
-    public function show(client $client)
+    public function show(Client $client)
     {
         return $this->clientInterface->show($client);
 
     }
 
 
-    public function edit(client $client)
+    public function edit($id)
     {
-        return $this->clientInterface->edit($client);
+        return $this->clientInterface->edit($id);
 
     }
 
 
-    public function update(Request $request, client $client)
+    public function update(UpdateClientRequest $request)
     {
-        return $this->clientInterface->update($request, $client);
+        return $this->clientInterface->update($request);
 
     }
 
 
-    public function destroy(client $client)
+    public function delete(DeleteClientRequest $request)
     {
-        return $this->clientInterface->destroy($client);
+
+        return $this->clientInterface->delete($request);
 
     }
 }

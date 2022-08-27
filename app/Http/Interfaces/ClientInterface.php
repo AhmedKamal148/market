@@ -4,17 +4,17 @@ namespace App\Http\Interfaces;
 
 interface ClientInterface
 {
-    public function index();
+    public function index($request);
 
     public function create();
 
     public function store($request);
 
-    public function edit($client);
+    public function edit($id);
 
-    public function update($request, $client);
+    public function update($request);
 
-    public function destroy($client);
+    public function delete($request);
 
-    public function show($client);
+
 }

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Dashboard\AdminController;
 use App\Http\Controllers\Dashboard\AuthController;
 use App\Http\Controllers\Dashboard\CategoryController;
+use App\Http\Controllers\Dashboard\ClientController;
 use App\Http\Controllers\Dashboard\ProductController;
 use App\Http\Controllers\Dashboard\UsersController;
 use Illuminate\Support\Facades\Route;
@@ -54,8 +55,13 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], fu
     });
     /******************************** Clients *********************************/
 
-    Route::group(['prefix' => 'client', 'as' => 'client.', 'namespace' => 'App\Http\Controllers\Dashboard\\'], function () {
-        Route::resource('', 'ClientController');
+    Route::group(['prefix' => 'client', 'as' => 'client.'], function () {
+        Route::get('', [ClientController::class, 'index'])->name('index');
+        Route::get('create', [ClientController::class, 'create'])->name('create');
+        Route::post('store', [ClientController::class, 'store'])->name('store');
+        Route::get('edit/{client_id}', [ClientController::class, 'edit'])->name('edit');
+        Route::put('update', [ClientController::class, 'update'])->name('update');
+        Route::delete('delete', [ClientController::class, 'delete'])->name('delete');
 
     });
 

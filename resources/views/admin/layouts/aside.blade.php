@@ -37,6 +37,7 @@
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <!-- Home -->
                 <li class="nav-item ">
                     <a href="{{route('admin.index')}}" class="nav-link ">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -46,18 +47,19 @@
                         </p>
                     </a>
                 </li>
+                <!-- Supervisors -->
                 @if(auth()->user()->hasPermission('read_users'))
                     <li class="nav-item">
-                    <a href="{{route('admin.users.index')}}" class="nav-link ">
-                        <i class="nav-icon far fa-user"></i>
-                        <p>
-                            Supervisors
-                        </p>
-                    </a>
+                        <a href="{{route('admin.users.index')}}" class="nav-link ">
+                            <i class="nav-icon far fa-user"></i>
+                            <p>
+                                Supervisors
+                            </p>
+                        </a>
 
-                </li>
+                    </li>
                 @endif
-
+                <!-- Categories -->
                 @if(auth()->user()->hasPermission('read_categories'))
                     <li class="nav-item">
                         <a href="{{route('admin.category.index')}}" class="nav-link ">
@@ -69,7 +71,8 @@
 
                     </li>
                 @endif
-                @if(auth()->user()->hasPermission('read_categories'))
+                <!-- Products -->
+                @if(auth()->user()->hasPermission('read_products'))
                     <li class="nav-item">
                         <a href="{{route('admin.product.index')}}" class="nav-link ">
                             <i class=" nav-icon fas fa-dice-d6"></i>
@@ -78,6 +81,17 @@
                             </p>
                         </a>
 
+                    </li>
+                @endif
+                <!-- Clients -->
+                @if(auth()->user()->hasPermission('read_clients'))
+                    <li class="nav-item">
+                        <a href="{{route('admin.client.index')}}" class="nav-link ">
+                            <i class="nav-icon fas fa-users"></i>
+                            <p>
+                                Clients
+                            </p>
+                        </a>
                     </li>
                 @endif
             </ul>
