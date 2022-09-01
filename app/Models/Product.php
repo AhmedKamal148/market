@@ -9,7 +9,6 @@ class Product extends Model
 {
     use HasFactory;
 
-    /*****************************************************/
     /***************** Data Members *****************/
     protected $fillable =
         [
@@ -24,18 +23,8 @@ class Product extends Model
     protected $appends = ['imageUrl', 'profit_percent'];
     private $path = "images\product\\";
     private $fullPath;
-    /*****************************************************/
 
 
-    /*****************************************************/
-    /***************** Relations *****************/
-    public function category()
-    {
-        return $this->belongsTo(Category::class, 'category_id', 'id');
-    }
-    /*****************************************************/
-
-    /*****************************************************/
     /***************** Accessories *****************/
     public function getImageUrlAttribute()
     {
@@ -51,6 +40,15 @@ class Product extends Model
         $profit_percent = $profit * 100 / $this->purchase_price;
         return number_format($profit_percent, 2);
     }
-    /*****************************************************/
 
+    /***************** Relations *****************/
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id', 'id');
+    }
+
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class, 'product_order');
+    }
 }

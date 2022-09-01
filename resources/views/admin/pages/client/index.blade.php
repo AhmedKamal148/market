@@ -57,6 +57,8 @@
                                             <th>Phone</th>
                                             <th>Address</th>
                                             @if(count($clients) >0)
+                                                <th class="text-info">Add Order</th>
+
                                                 <th class="text-success">
                                                     Edit
                                                 </th>
@@ -66,6 +68,7 @@
                                             @endif
                                         </tr>
                                         </thead>
+                                        {{--Table Body--}}
                                         <tbody>
                                         @foreach($clients as $client)
                                             <tr class="">
@@ -82,10 +85,24 @@
                                                     </ul>
                                                 </td>
                                                 <td>{{$client->address}}</td>
-                                                {{-- Edit && Delete--}}
+
                                                 @if(count($clients) > 0)
+                                                    {{-- Permission Of Order--}}
+                                                    <td>
+                                                        @if(auth()->user()->hasPermission('create_orders'))
+
+                                                            <a href="{{route('admin.order.create',[$client])}}"
+                                                               class="btn btn-outline-info">Order</a>
+                                                        @else
+                                                            <a href="#"
+                                                               class="btn btn-outline-info disabled">Order</a>
+                                                        @endif
+
+                                                    </td>
+
+                                                    {{-- Edit && Delete--}}
                                                     <td class="text-success">
-                                                        <a class="btn btn-lg btn-outline-success font-weight-bold"
+                                                        <a class="btn  btn-outline-success font-weight-bold"
                                                            href="{{route('admin.client.edit',[$client->id])}}">Edit</a>
                                                     </td>
                                                     <td class="text-danger">
@@ -95,7 +112,7 @@
                                                             @method('delete')
                                                             <input type="hidden" value="{{$client->id}}"
                                                                    name="client_id">
-                                                            <button class="btn btn-lg
+                                                            <button class="btn
                                                             btn-outline-danger font-weight-bold">Delete
                                                             </button>
                                                         </form>
@@ -118,13 +135,13 @@
 
                     @if(auth()->user()->hasPermission('create_clients'))
                         <a
-                                class="btn btn-lg btn-outline-dark font-weight-bold"
-                                href="{{route('admin.client.create')}}">Create client</a>
+                            class="btn btn-lg btn-outline-dark font-weight-bold"
+                            href="{{route('admin.client.create')}}">Create client</a>
 
                     @else
                         <a
-                                class="btn btn-lg btn-outline-dark disabled font-weight-bold "
-                                href="#">Create client</a>
+                            class="btn btn-lg btn-outline-dark disabled font-weight-bold "
+                            href="#">Create client</a>
                     @endif
 
                 </div>

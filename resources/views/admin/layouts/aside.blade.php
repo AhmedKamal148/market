@@ -91,6 +91,17 @@
                             <p>
                                 Clients
                             </p>
+                        </a>*
+                    </li>
+                @endif
+                <!-- Clients -->
+                @if(auth()->user()->hasPermission('read_orders'))
+                    <li class="nav-item">
+                        <a href="{{route('admin.order.index')}}" class="nav-link ">
+                            <i class="nav-icon fab fa-shopify"></i>
+                            <p>
+                                Orders
+                            </p>
                         </a>
                     </li>
                 @endif

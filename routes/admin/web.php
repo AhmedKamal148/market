@@ -4,6 +4,7 @@ use App\Http\Controllers\Dashboard\AdminController;
 use App\Http\Controllers\Dashboard\AuthController;
 use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\ClientController;
+use App\Http\Controllers\Dashboard\OrderClientController;
 use App\Http\Controllers\Dashboard\ProductController;
 use App\Http\Controllers\Dashboard\UsersController;
 use Illuminate\Support\Facades\Route;
@@ -64,6 +65,15 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], fu
         Route::delete('delete', [ClientController::class, 'delete'])->name('delete');
 
     });
-
+    /******************************** Orders *********************************/
+    Route::group(['prefix' => 'order', 'as' => 'order.'], function () {
+        Route::get('', [OrderClientController::class, 'index'])->name('index');
+        Route::get('create/{client}', [OrderClientController::class, 'create'])->name('create');
+        Route::post('store/{client}', [OrderClientController::class, 'store'])->name('store');
+        Route::get('edit/{order}', [OrderClientController::class, 'edit'])->name('edit');
+        Route::put('update/{order}', [OrderClientController::class, 'update'])->name('update');
+        Route::delete('destroy/{order}', [OrderClientController::class, 'delete'])->name('destroy');
+    });
 });
+
 

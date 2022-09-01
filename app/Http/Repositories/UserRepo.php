@@ -12,7 +12,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class UserRepo implements UserInterface
 {
-    protected $models = ['users', 'categories', 'products'];
+    protected $models = ['users', 'categories', 'products', 'clients', 'orders'];
 
 
     public function __construct()
