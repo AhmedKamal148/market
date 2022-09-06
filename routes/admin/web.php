@@ -4,7 +4,7 @@ use App\Http\Controllers\Dashboard\AdminController;
 use App\Http\Controllers\Dashboard\AuthController;
 use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\ClientController;
-use App\Http\Controllers\Dashboard\OrderClientController;
+use App\Http\Controllers\Dashboard\OrderController;
 use App\Http\Controllers\Dashboard\ProductController;
 use App\Http\Controllers\Dashboard\UsersController;
 use Illuminate\Support\Facades\Route;
@@ -52,8 +52,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], fu
         Route::get('edit/{product_id}', [ProductController::class, 'edit'])->name('edit');
         Route::put('update', [ProductController::class, 'update'])->name('update');
         Route::delete('delete', [ProductController::class, 'delete'])->name('delete');
-
     });
+//    Route::Resource('product', ProductController::class);
+
     /******************************** Clients *********************************/
 
     Route::group(['prefix' => 'client', 'as' => 'client.'], function () {
@@ -67,12 +68,14 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], fu
     });
     /******************************** Orders *********************************/
     Route::group(['prefix' => 'order', 'as' => 'order.'], function () {
-        Route::get('', [OrderClientController::class, 'index'])->name('index');
-        Route::get('create/{client}', [OrderClientController::class, 'create'])->name('create');
-        Route::post('store/{client}', [OrderClientController::class, 'store'])->name('store');
-        Route::get('edit/{order}', [OrderClientController::class, 'edit'])->name('edit');
-        Route::put('update/{order}', [OrderClientController::class, 'update'])->name('update');
-        Route::delete('destroy/{order}', [OrderClientController::class, 'delete'])->name('destroy');
+
+        Route::get('', [OrderController::class, 'index'])->name('index');
+        Route::get('create/{client}', [OrderController::class, 'create'])->name('create');
+        Route::post('store/{client}', [OrderController::class, 'store'])->name('store');
+        Route::get('edit/{client}/{order}', [OrderController::class, 'edit'])->name('edit');
+        Route::put('update/{client}/{order}', [OrderController::class, 'update'])->name('update');
+        Route::delete('destroy/{order}', [OrderController::class, 'destroy'])->name('destroy');
+        Route::get('/{order}/products', [OrderController::class, 'products'])->name('products');
     });
 });
 

@@ -112,7 +112,7 @@
                                                            href="{{route('admin.product.edit',[$product->id])}}">Edit</a>
                                                     </td>
                                                     <td class="text-danger">
-                                                        <form action="{{route('admin.product.delete')}}"
+                                                        <form action="{{route('admin.product.destroy')}}"
                                                               method="post">
                                                             @csrf
                                                             @method('delete')
@@ -143,13 +143,13 @@
 
                     @if(auth()->user()->hasPermission('create_products'))
                         <a
-                                class="btn btn-lg btn-outline-dark font-weight-bold"
-                                href="{{route('admin.product.create')}}">Create product</a>
+                            class="btn btn-lg btn-outline-dark font-weight-bold"
+                            href="{{route('admin.product.create')}}">Create product</a>
 
                     @else
                         <a
-                                class="btn btn-lg btn-outline-dark disabled font-weight-bold "
-                                href="#">Create product</a>
+                            class="btn btn-lg btn-outline-dark disabled font-weight-bold "
+                            href="#">Create product</a>
                     @endif
 
                 </div>

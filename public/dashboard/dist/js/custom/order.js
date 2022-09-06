@@ -57,7 +57,7 @@ $(document).ready(function () {
     //Calac Total Price If Quantity Changed
     $('body').on('change', '.product-quantity', function (e) {
         let quantity = parseInt($(this).val());
-        let productPrice = $(this).closest('tr').find('#price');
+        const productPrice = $(this).closest('tr').find('#price');
         let totalPrice = parseInt(productPrice.data('price')) * quantity;
         productPrice.html(totalPrice);
 
@@ -65,6 +65,22 @@ $(document).ready(function () {
 
     })
     /************************************************************/
+    // Show Products Related Whit Orders When Click On Show
+    $('.showProducts').on('click', function (e) {
+
+        e.preventDefault();
+        var url = $(this).data('url'),
+            method = $(this).data('method');
+        getData(url, method);
+
+    })
+
+    /************************************************************/
+    // Print Invoice
+    $(document).on('click', '.printInvoice', function () {
+        $('.product_print_details').printThis();
+
+    })
 
     /****************** Functions ************************/
     /**
@@ -86,9 +102,21 @@ $(document).ready(function () {
             $('#add-order-btn').removeClass('disabled');
         } else {
             $('#add-order-btn').addClass('disabled');
-
         }
     }
+
+    /** Using getData Function  To Make Callback Function For making This Btn Disabled After Clicked **/
+    function getData(url, method) {
+        return $.ajax({
+            url: url,
+            method: method,
+            success: function (data) {
+                $('.product_order_Invoice').empty();
+                $('.product_order_Invoice').append(data);
+            }
+        });
+    }
+
 
 })
 

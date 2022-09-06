@@ -22,7 +22,7 @@
                         <div class="card-tools">
                             <form action="{{route('admin.order.index')}}" method="get">
                                 <div class="input-group input-group-sm">
-                                    <input type="text" class="form-control" name="search_order"
+                                    <input type="text" class="form-control" name="search"
                                            placeholder="Search orders"
                                            value="{{request()->search}}">
                                     <div class="input-group-append">
@@ -36,14 +36,15 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col">
-                            <div class="card">
+                    <div class="row" id="products_order_row">
+                        <div class="col-md-8">
+                            <div class="card orders_table">
                                 {{--Header Of Table--}}
                                 <div class="card-header">
                                     <h3 class="font-weight-bold"> Orders
                                         <small class="font-weight-bold">{{$orders->total()}}</small>
                                     </h3>
+
                                 </div>
                                 <div class="card-body">
                                     <table class="table table-striped font-weight-bold text-capitalize">
@@ -54,12 +55,16 @@
                                             <th>Total Price</th>
                                             <th>Created At</th>
                                             @if(count($orders) >0)
+                                                <th class="text-info">
+                                                    Show
+                                                </th>
                                                 <th class="text-success">
                                                     Edit
                                                 </th>
                                                 <th class="text-danger">
                                                     Delete
                                                 </th>
+
                                             @endif
                                         </tr>
                                         </thead>
@@ -74,8 +79,16 @@
                                                 @if(count($orders) > 0 && auth()->user()->hasPermission('update_orders'))
 
                                                     <td class="text-success">
-                                                        <a class="btn btn-lg btn-outline-success font-weight-bold"
-                                                           href="{{route('admin.order.edit',[$order->id])
+                                                        <a class="btn btn-outline-info font-weight-bold showProducts"
+                                                           data-url="{{route('admin.order.products',[$order])}}"
+                                                           data-method="get"
+                                                        >
+                                                            Show
+                                                        </a>
+                                                    </td>
+                                                    <td class="text-success">
+                                                        <a class="btn btn-outline-success font-weight-bold"
+                                                           href="{{route('admin.order.edit',[$order->client,$order])
                                                            }}">Edit</a>
                                                     </td>
                                                     <td class="text-danger">
@@ -84,7 +97,7 @@
                                                             @csrf
                                                             @method('delete')
 
-                                                            <button class="btn btn-lg
+                                                            <button class="btn
                                                             btn-outline-danger font-weight-bold">Delete
                                                             </button>
                                                         </form>
@@ -103,21 +116,27 @@
                                 </div>
                             </div>
                         </div>
+                        {{--product_order_Invoice--}}
+                        <div class="col-md-4 product_order_Invoice">
+
+                        </div>
                     </div>
                 </div>
 
-                {{--  <div class="card-footer d-flex justify-content-between">
+                <div class="card-footer d-flex justify-content-between">
 
-                      @if(auth()->user()->hasPermission('create_orders'))
-                          <a class="btn btn-lg btn-outline-dark font-weight-bold"
-                             href="{{route('admin.order.create',$client)}}">Create
-                              order</a>
+                    @if(auth()->user()->hasPermission('create_orders'))
+                        <a class="btn btn-lg btn-outline-dark font-weight-bold"
+                           href="{{route('admin.order.create',[$order->client])}}">
+                            <span> Create order</span>
+                            <i class="fas fa-plus"></i>
+                        </a>
 
-                      @else
-                          <a class="btn btn-lg btn-outline-dark disabled font-weight-bold " href="#">Create order</a>
-                      @endif
+                    @else
+                        <a class="btn btn-lg btn-outline-dark disabled font-weight-bold " href="#">Create order</a>
+                    @endif
 
-                  </div>--}}
+                </div>
             </div>
         </div>
     </div>

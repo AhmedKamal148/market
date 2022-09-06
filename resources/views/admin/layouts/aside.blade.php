@@ -91,10 +91,10 @@
                             <p>
                                 Clients
                             </p>
-                        </a>*
+                        </a>
                     </li>
                 @endif
-                <!-- Clients -->
+                <!-- Orders -->
                 @if(auth()->user()->hasPermission('read_orders'))
                     <li class="nav-item">
                         <a href="{{route('admin.order.index')}}" class="nav-link ">

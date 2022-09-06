@@ -3,24 +3,25 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Http\Interfaces\OrderClientInterface;
+use App\Http\Interfaces\OrderInterface;
 use App\Http\Requests\order\CreateOrderRequest;
 use App\Http\Requests\order\UpdateOrderRequest;
 use App\Models\Client;
 use App\Models\Order;
+use Illuminate\Http\Request;
 
-class OrderClientController extends Controller
+class OrderController extends Controller
 {
     protected $orderInterface;
 
-    public function __construct(OrderClientInterface $orderInterface)
+    public function __construct(OrderInterface $orderInterface)
     {
         return $this->orderInterface = $orderInterface;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return $this->orderInterface->index();
+        return $this->orderInterface->index($request);
     }
 
     public function create(Client $client)
@@ -33,28 +34,30 @@ class OrderClientController extends Controller
         return $this->orderInterface->store($request, $client);
     }
 
-    public function show(Order $order)
+    public function edit(Client $client, Order $order)
     {
-        return $this->orderInterface->show($order);
-    }
-
-
-    public function edit(Order $order)
-    {
-        return $this->orderInterface->edit($order);
+        return $this->orderInterface->edit($client, $order);
 
     }
 
 
-    public function update(UpdateOrderRequest $request, Order $order)
+    public function update(UpdateOrderRequest $request, Client $client, Order $order)
     {
-        return $this->orderInterface->update($request, $order);
+        return $this->orderInterface->update($request, $client, $order);
 
     }
 
     public function destroy(Order $order)
     {
+
         return $this->orderInterface->destroy($order);
 
     }
+
+    public function products(Order $order)
+    {
+        return $this->orderInterface->products($order);
+    }
+
+
 }

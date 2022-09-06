@@ -14,5 +14,5 @@ interface ProductInterface
 
     public function update($request);
 
-    public function delete($request);
+    public function destroy($request);
 }

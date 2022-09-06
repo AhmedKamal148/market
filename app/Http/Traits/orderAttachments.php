@@ -1,33 +1,21 @@
 <?php
 
-namespace App\Http\Repositories;
+namespace App\Http\Traits;
 
 
-use App\Http\Interfaces\OrderClientInterface;
-use App\Models\Category;
-use App\Models\Order;
 use App\Models\Product;
 use RealRashid\SweetAlert\Facades\Alert;
 
-class OrderClientClientRepo implements OrderClientInterface
+trait orderAttachments
 {
 
-    public function index()
+    private function attachOrder($request, $client)
     {
-        $orders = Order::with('client')->paginate(5);
-
-        return view('admin.pages.order.index', compact('orders'));
-    }
-
-    public function store($request, $client)
-    {
-
         $order = $client->orders()->create([]); // To Get ID From Order [ Can't Create Order Without Client ]
-
+       
         $order->Products()->attach($request->products);// Insert Into Product_order Table
 
         $totalPrice = 0;  // To Calculate  Total_Price Of Order
-
 
         foreach ($request->products as $id => $quantity) {
 
@@ -41,33 +29,16 @@ class OrderClientClientRepo implements OrderClientInterface
         $order->update(['total_price' => $totalPrice]); // Update Order Total Price Depend On Cost Of Products
 
         Alert::success('Create Order', 'Created Successfully');
-
-        return redirect()->back();
     }
 
-    public function create($client)
+
+    private function deAttachOrder($order)
     {
-        $categories = Category::with('product')->get();
-        return view('admin.pages.order.create', compact('client', 'categories'));
-    }
-
-    public function update($request, $order)
-    {
-
-    }
-
-    public function edit($order)
-    {
-
-    }
-
-    public function show($order)
-    {
-
-    }
-
-    public function destroy($order)
-    {
-
+        foreach ($order->products as $product) {
+            $product->update([
+                'stock' => $product->stock + $product->pivot->quantity
+            ]);
+        }
+        $order->delete();
     }
 }

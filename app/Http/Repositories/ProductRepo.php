@@ -97,7 +97,7 @@ class ProductRepo implements ProductInterface
 
     }
 
-    public function delete($request)
+    public function destroy($request)
     {
         $product = Product::find($request->product_id);
 

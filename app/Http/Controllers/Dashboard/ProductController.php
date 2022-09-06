@@ -58,7 +58,7 @@ class ProductController extends Controller
     }
 
 
-    public function delete(DeleteProductRequest $request)
+    public function destroy(DeleteProductRequest $request)
     {
         return $this->productInterface->delete($request);
     }
