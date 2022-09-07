@@ -109,15 +109,13 @@
                                                 @if(count($products) > 0)
                                                     <td class="text-success">
                                                         <a class="btn btn-lg btn-outline-success font-weight-bold"
-                                                           href="{{route('admin.product.edit',[$product->id])}}">Edit</a>
+                                                           href="{{route('admin.product.edit',$product)}}">Edit</a>
                                                     </td>
                                                     <td class="text-danger">
-                                                        <form action="{{route('admin.product.destroy')}}"
+                                                        <form action="{{route('admin.product.destroy' , $product)}}"
                                                               method="post">
                                                             @csrf
                                                             @method('delete')
-                                                            <input type="hidden" value="{{$product->id}}"
-                                                                   name="product_id">
                                                             <button class="btn btn-lg
                                                             btn-outline-danger font-weight-bold">Delete
                                                             </button>

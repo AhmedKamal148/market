@@ -27,7 +27,7 @@ class RepositoryServiceProvider extends ServiceProvider
             'App\Http\Interfaces\AuthInterface',
             'App\Http\Repositories\AuthRepo'
         );
-        
+
         $this->app->bind(
             'App\Http\Interfaces\CategoryInterface',
             'App\Http\Repositories\CategoryRepo'
@@ -44,11 +44,6 @@ class RepositoryServiceProvider extends ServiceProvider
             'App\Http\Interfaces\OrderInterface',
             'App\Http\Repositories\OrderRepo'
         );
-        $this->app->bind(
-            'App\Http\Interfaces\test',
-            'App\Http\Repositories\test'
-        );
-
     }
 
     /**

@@ -12,9 +12,7 @@ interface ClientInterface
 
     public function edit($id);
 
-    public function update($request);
+    public function update($client, $request);
 
-    public function delete($request);
-
-
+    public function destroy($client, $request);
 }

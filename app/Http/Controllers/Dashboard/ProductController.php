@@ -11,7 +11,6 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-
     protected $productInterface;
 
     public function __construct(ProductInterface $productInterface)
@@ -36,30 +35,20 @@ class ProductController extends Controller
         return $this->productInterface->store($request);
     }
 
-
-    public function show(product $product)
-    {
-        return $this->productInterface->show($product);
-
-    }
-
-
     public function edit($id)
     {
         return $this->productInterface->edit($id);
-
     }
 
 
-    public function update(Request $request)
+    public function update(product $product, Request $request)
     {
-        return $this->productInterface->update($request);
-
+        return $this->productInterface->update($product, $request);
     }
 
 
-    public function destroy(DeleteProductRequest $request)
+    public function destroy(product $product, Request $request)
     {
-        return $this->productInterface->delete($request);
+        return $this->productInterface->destroy($product, $request);
     }
 }

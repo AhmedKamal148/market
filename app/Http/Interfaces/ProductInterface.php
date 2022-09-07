@@ -12,7 +12,7 @@ interface ProductInterface
 
     public function edit($id);
 
-    public function update($request);
+    public function update($product, $request);
 
-    public function destroy($request);
+    public function destroy($product, $request);
 }

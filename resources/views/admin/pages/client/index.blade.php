@@ -103,15 +103,14 @@
                                                     {{-- Edit && Delete--}}
                                                     <td class="text-success">
                                                         <a class="btn  btn-outline-success font-weight-bold"
-                                                           href="{{route('admin.client.edit',[$client->id])}}">Edit</a>
+                                                           href="{{route('admin.client.edit',$client)}}">Edit</a>
                                                     </td>
                                                     <td class="text-danger">
-                                                        <form action="{{route('admin.client.delete')}}"
+                                                        <form action="{{route('admin.client.destroy' ,$client)}}"
                                                               method="post">
                                                             @csrf
                                                             @method('delete')
-                                                            <input type="hidden" value="{{$client->id}}"
-                                                                   name="client_id">
+                                                          
                                                             <button class="btn
                                                             btn-outline-danger font-weight-bold">Delete
                                                             </button>

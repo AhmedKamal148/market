@@ -34,28 +34,18 @@ class CategoryController extends Controller
     public function store(CreateCategoryRequest $request)
     {
         return $this->categoryInterface->store($request);
-
     }
 
-    public function show($id)
+    public function edit($category)
     {
-        return $this->categoryInterface->show($id);
-
+        return $this->categoryInterface->edit($category);
     }
-
-    public function edit($id)
+    public function update(Category $category, Request $request)
     {
-        return $this->categoryInterface->edit($id);
-
+        return $this->categoryInterface->update($category, $request);
     }
-    public function update(UpdateCategoryRequest $request)
+    public function destroy(Category $category, Request $request)
     {
-        return $this->categoryInterface->update($request);
-
-    }
-    public function delete(DeleteCategoryRequest $request )
-    {
-        return $this->categoryInterface->delete($request);
-
+        return $this->categoryInterface->destroy($category, $request);
     }
 }

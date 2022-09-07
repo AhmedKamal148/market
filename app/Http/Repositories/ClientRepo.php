@@ -2,17 +2,14 @@
 
 namespace App\Http\Repositories;
 
-
 use App\Http\Interfaces\ClientInterface;
 use App\Models\Client;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class ClientRepo implements ClientInterface
 {
-
     public function index($request)
     {
-
         $clients = Client::when($request->search, function ($q) use ($request) {
             return $q->where('name', 'like', '%' . $request->search . '%')
                 ->orWhere('address', 'like', '%' . $request->search . '%')
@@ -20,7 +17,6 @@ class ClientRepo implements ClientInterface
         })->paginate(5);
 
         return view('admin.pages.client.index', compact('clients'));
-
     }
 
     public function store($request)
@@ -35,7 +31,6 @@ class ClientRepo implements ClientInterface
     public function create()
     {
         return view('admin.pages.client.create');
-
     }
 
     public function edit($id)
@@ -44,21 +39,17 @@ class ClientRepo implements ClientInterface
         return view('admin.pages.client.edit', compact('client'));
     }
 
-    public function update($request)
+    public function update($client, $request)
     {
-        $client = Client::find($request->client_id);
         $client->update($request->all());
         Alert::success('Update Success', 'Update Client Success');
         return redirect()->route('admin.client.index');
     }
 
-    public function delete($request)
+    public function destroy($client, $request)
     {
-        $client = Client::find($request->client_id);
         $client->delete();
         Alert::error('Delete Success', 'Delete Client Success');
         return redirect()->route('admin.client.index');
     }
-
-
 }

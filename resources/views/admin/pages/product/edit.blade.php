@@ -30,7 +30,7 @@
 
                     </div>
                 @endif
-                <form action="{{route('admin.product.update')}}" method="post" enctype="multipart/form-data">
+                <form action="{{route('admin.product.update' , $product)}}" method="post" enctype="multipart/form-data">
                     @csrf
                     @method('put')
                     <input type="hidden" value="{{$product->id}}" name="product_id">

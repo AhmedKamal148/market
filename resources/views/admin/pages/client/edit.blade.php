@@ -34,10 +34,9 @@
 
                     </div>
                 @endif
-                <form action="{{route('admin.client.update')}}" method="post">
+                <form action="{{route('admin.client.update' , $client)}}" method="post">
                     @csrf
                     @method('put')
-                    <input type="hidden" value="{{$client->id}}" name="client_id"/>
                     <div class="card-body ">
                         <div class="form-group">
                             <label for="name">Name</label>

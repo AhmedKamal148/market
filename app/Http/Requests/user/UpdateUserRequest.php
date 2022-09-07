@@ -20,7 +20,7 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         return [
-                    'user_id' =>'required|exists:users,id',
+            'id' => 'required|exists:users,id',
         ];
     }
 }

@@ -1,23 +1,21 @@
 <?php
+
 namespace  App\Http\Repositories;
 
 use App\Http\Interfaces\CategoryInterface;
 use App\Models\Category;
 use RealRashid\SweetAlert\Facades\Alert;
 
-
 class CategoryRepo implements CategoryInterface
 {
-
     public function index($request)
     {
         $categories = Category::all();
-        $categories = Category::where(function ($query) use ($request)
-            {
-                return $query->where('name' ,'like' ,'%' . $request->search_category . '%');
-            })->paginate(5);
+        $categories = Category::where(function ($query) use ($request) {
+            return $query->where('name', 'like', '%' . $request->search_category . '%');
+        })->paginate(5);
 
-        return  view('admin.pages.category.index',compact('categories'));
+        return  view('admin.pages.category.index', compact('categories'));
     }
     public function create()
     {
@@ -28,34 +26,26 @@ class CategoryRepo implements CategoryInterface
         $category = Category::create([
             'name' => $request->name,
         ]);
-        Alert::success('Create Category' , "Create {{$category->name}} Successfully!");
+        Alert::success('Create Category', "Create {{$category->name}} Successfully!");
         return redirect()->back();
     }
     public function edit($id)
     {
         $category = Category::find($id);
-        return view('admin.pages.category.edit' ,compact('category'));
+        return view('admin.pages.category.edit', compact('category'));
     }
-    public function update($request)
+
+    public function update($category, $request)
     {
-
-   $category = Category::find($request->category_id);
-
-        $category->update(
-            [
-                'name' => ($request->has('name')) ? $request->name : $category->name,
-            ]
-        );
-        Alert::success("Update Category" , "Update  Successfully !");
+        $category->update($request->all());
+        Alert::success("Update Category", "Update  Successfully !");
         return redirect(route('admin.category.index'));
     }
 
-    public function delete($request)
+    public function destroy($category, $request)
     {
-            $category = Category::find($request->category_id);
-            $category->delete();
-            Alert::error('Delete Category' , 'Deleted Successfully!');
-            return redirect()->route('admin.category.index');
-
+        $category->delete();
+        Alert::error('Delete Category', 'Deleted Successfully!');
+        return redirect()->route('admin.category.index');
     }
 }

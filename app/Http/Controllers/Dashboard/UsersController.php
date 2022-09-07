@@ -12,47 +12,42 @@ use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
-        protected  $userInterface;
+    protected $userInterface;
 
-        public function __construct(UserInterface $userInterface)
-        {
-            return $this->userInterface = $userInterface;
-        }
+    public function __construct(UserInterface $userInterface)
+    {
+        return $this->userInterface = $userInterface;
+    }
 
-       public function index(Request $request)
-       {
-           return $this->userInterface->index($request);
-       }
-       public function create()
-       {
-           return $this->userInterface->create();
+    public function index(Request $request)
+    {
+        return $this->userInterface->index($request);
+    }
+    public function create()
+    {
+        return $this->userInterface->create();
+    }
 
-       }
+    public function store(CreateUserRequest $request)
+    {
+        return $this->userInterface->store($request);
+    }
+    public function show($id)
+    {
+        //
+    }
+    public function edit($id)
+    {
+        return $this->userInterface->edit($id);
+    }
 
-       public function store(CreateUserRequest $request)
-       {
-           return $this->userInterface->store($request);
+    public function update(User $user, Request $request)
+    {
+        return $this->userInterface->update($user, $request);
+    }
 
-       }
-       public function show($id)
-       {
-           //
-       }
-       public function edit($id)
-       {
-           return $this->userInterface->edit($id);
-
-       }
-
-       public function update(UpdateUserRequest $request)
-       {
-           return $this->userInterface->update($request);
-
-       }
-
-       public function delete(DeleteUserRequest $request)
-       {
-           return $this->userInterface->delete($request);
-
-       }
+    public function destroy(User $user, Request $request)
+    {
+        return $this->userInterface->destroy($user, $request);
+    }
 }

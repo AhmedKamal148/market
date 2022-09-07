@@ -49,61 +49,61 @@
                 </li>
                 <!-- Supervisors -->
                 @if(auth()->user()->hasPermission('read_users'))
-                    <li class="nav-item">
-                        <a href="{{route('admin.users.index')}}" class="nav-link ">
-                            <i class="nav-icon far fa-user"></i>
-                            <p>
-                                Supervisors
-                            </p>
-                        </a>
+                <li class="nav-item">
+                    <a href="{{route('admin.users.index')}}" class="nav-link ">
+                        <i class="nav-icon far fa-user"></i>
+                        <p>
+                            Supervisors
+                        </p>
+                    </a>
 
-                    </li>
+                </li>
                 @endif
                 <!-- Categories -->
                 @if(auth()->user()->hasPermission('read_categories'))
-                    <li class="nav-item">
-                        <a href="{{route('admin.category.index')}}" class="nav-link ">
-                            <i class=" nav-icon fas fa-dice-d6"></i>
-                            <p>
-                                Categories
-                            </p>
-                        </a>
+                <li class="nav-item">
+                    <a href="{{route('admin.category.index')}}" class="nav-link ">
+                        <i class=" nav-icon fas fa-dice-d6"></i>
+                        <p>
+                            Categories
+                        </p>
+                    </a>
 
-                    </li>
+                </li>
                 @endif
                 <!-- Products -->
                 @if(auth()->user()->hasPermission('read_products'))
-                    <li class="nav-item">
-                        <a href="{{route('admin.product.index')}}" class="nav-link ">
-                            <i class=" nav-icon fas fa-dice-d6"></i>
-                            <p>
-                                Product
-                            </p>
-                        </a>
+                <li class="nav-item">
+                    <a href="{{route('admin.product.index')}}" class="nav-link ">
+                        <i class=" nav-icon fas fa-dice-d6"></i>
+                        <p>
+                            Product
+                        </p>
+                    </a>
 
-                    </li>
+                </li>
                 @endif
                 <!-- Clients -->
                 @if(auth()->user()->hasPermission('read_clients'))
-                    <li class="nav-item">
-                        <a href="{{route('admin.client.index')}}" class="nav-link ">
-                            <i class="nav-icon fas fa-users"></i>
-                            <p>
-                                Clients
-                            </p>
-                        </a>
-                    </li>
+                <li class="nav-item">
+                    <a href="{{route('admin.client.index')}}" class="nav-link ">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>
+                            Clients
+                        </p>
+                    </a>
+                </li>
                 @endif
                 <!-- Orders -->
                 @if(auth()->user()->hasPermission('read_orders'))
-                    <li class="nav-item">
-                        <a href="{{route('admin.order.index')}}" class="nav-link ">
-                            <i class="nav-icon fab fa-shopify"></i>
-                            <p>
-                                Orders
-                            </p>
-                        </a>
-                    </li>
+                <li class="nav-item">
+                    <a href="{{route('admin.order.index')}}" class="nav-link ">
+                        <i class="nav-icon fab fa-shopify"></i>
+                        <p>
+                            Orders
+                        </p>
+                    </a>
+                </li>
                 @endif
             </ul>
         </nav>

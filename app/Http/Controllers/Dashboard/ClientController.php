@@ -10,10 +10,8 @@ use App\Http\Requests\client\UpdateClientRequest;
 use App\Models\client;
 use Illuminate\Http\Request;
 
-
 class ClientController extends Controller
 {
-
     protected $clientInterface;
 
     public function __construct(ClientInterface $clientInterface)
@@ -29,40 +27,28 @@ class ClientController extends Controller
     public function store(CreateClientRequest $request)
     {
         return $this->clientInterface->store($request);
-
     }
 
     public function create()
     {
         return $this->clientInterface->create();
-
-    }
-
-    public function show(Client $client)
-    {
-        return $this->clientInterface->show($client);
-
     }
 
 
     public function edit($id)
     {
         return $this->clientInterface->edit($id);
-
     }
 
 
-    public function update(UpdateClientRequest $request)
+    public function update(Client $client, Request $request)
     {
-        return $this->clientInterface->update($request);
-
+        return $this->clientInterface->update($client, $request);
     }
 
 
-    public function delete(DeleteClientRequest $request)
+    public function destroy(Client $client, Request $request)
     {
-
-        return $this->clientInterface->delete($request);
-
+        return $this->clientInterface->destroy($client, $request);
     }
 }

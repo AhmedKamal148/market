@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use RealRashid\SweetAlert\Facades\Alert;
 
-
 class UserRepo implements UserInterface
 {
     protected $models = ['users', 'categories', 'products', 'clients', 'orders'];
@@ -36,7 +35,6 @@ class UserRepo implements UserInterface
             $users = User::with('roles')->paginate(3);
         }
         return view('admin.pages.users.index', compact('users'));
-
     }
 
     public function store($request)
@@ -46,7 +44,10 @@ class UserRepo implements UserInterface
             $imageName = $request->image->hashName();
 
             $img->save(
-                public_path('images/user/') . $imageName, 100, $request->image->extension());
+                public_path('images/user/' . $imageName),
+                100,
+                $request->image->extension()
+            );
         }
         $user = User::create(
             [
@@ -80,24 +81,25 @@ class UserRepo implements UserInterface
         return view('admin.pages.users.edit', compact('user', 'models'));
     }
 
-    public function update($request)
+    public function update($user, $request)
     {
-        $user = User::find($request->user_id);
         // Check If Request Has Image && Image Not Equal Default Image ;
         if ($request->has('image')) {
             if ($user->image != 'default.jpg') {
                 Storage::disk('public_uploads')->delete('/user/' . $user->image);
+            } else {
+                $img = Image::make($request->image);
+                $imageName = $request->image->hashName();
+                $img->save(public_path('images/user/' . $imageName));
             }
-            $img = Image::make($request->image);
-            $imageName = $request->image->hashName();
-            $img->save(public_path('images/user/' . $imageName));
         }
+
 
         $user->update([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'password' => Hash::make($request->password),
-            'image' => (isset($imageName)) ? $imageName : $user->imageUrl,
+            'image' => (isset($imageName)) ? $imageName : $user->image,
         ]);
 
         $user->syncPermissions($request->permissions);
@@ -105,15 +107,12 @@ class UserRepo implements UserInterface
         return redirect(route('admin.users.index'));
     }
 
-    public function delete($request)
+    public function destroy($user, $request)
     {
-        $user = User::find($request->user_id);
         if ($user->image != 'default.jpg') {
-
             Storage::disk('public_uploads')->delete('/user/' . $user->image);
         }
         $user->delete();
-
         return redirect(route('admin.users.index'));
     }
 }

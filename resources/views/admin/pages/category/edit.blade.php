@@ -30,10 +30,9 @@
 
                     </div>
                 @endif
-                <form action="{{route('admin.category.update')}}" method="post">
+                <form action="{{route('admin.category.update',$category)}}" method="post">
                     @csrf
                     @method('put')
-                    <input type="hidden" value="{{$category->id}}" name="category_id">
                     <div class="card-body">
                         <div class="form-group">
                             <label for="name">Category Name</label>
