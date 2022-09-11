@@ -91,7 +91,7 @@
                                                     <td>
                                                         @if(auth()->user()->hasPermission('create_orders'))
 
-                                                            <a href="{{route('admin.order.create',[$client])}}"
+                                                            <a href="#"
                                                                class="btn btn-outline-info">Order</a>
                                                         @else
                                                             <a href="#"
@@ -110,7 +110,7 @@
                                                               method="post">
                                                             @csrf
                                                             @method('delete')
-                                                          
+
                                                             <button class="btn
                                                             btn-outline-danger font-weight-bold">Delete
                                                             </button>

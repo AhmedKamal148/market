@@ -6,7 +6,7 @@
         <div class="offset-6 col-sm-6">
             <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="{{route('admin.index')}}">Home</a></li>
-                <li class="breadcrumb-item active"><a href="{{route('admin.order.index')}}">Orders</a></li>
+                {{--                <li class="breadcrumb-item active"><a href="{{route('admin.order.index')}}">Orders</a></li>--}}
                 <li class="breadcrumb-item active">Create Order</li>
             </ol>
         </div>
@@ -118,38 +118,33 @@
                                     <div class="card-header">
                                         <h3> The Orders</h3>
                                     </div>
-                                    <form action="{{route('admin.order.store',$client->id)}}" method="post">
-                                        @csrf
-                                        <div class="card-body">
-                                            <table class="table table-striped font-weight-bold text-capitalize ">
-                                                <thead class="thead-dark border border-bottom">
-                                                <tr>
-                                                    <th>Name</th>
-                                                    <th>Quantity</th>
-                                                    <th>Price</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody id="tBody">
-                                                {{--If Don't Find Orders --}}
-                                                <tr class="rowDataFound">
-                                                    <td colSpan="6">
-                                                        <p>No Data Found</p>
-                                                    </td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <div class="card-footer text-center">
-                                            <h4 class="font-weight-bold mb-2">Total Cost = <span id="totalCost">0</span>
-                                            </h4>
-                                            <button type="submit"
-                                                    class="btn btn-primary d-block font-weight-bold disabled"
-                                                    id="add-order-btn">Add
-                                                Order
-                                            </button>
-                                        </div>
-                                    </form>
+                                    <div class="card-body">
+                                        <table class="table table-striped font-weight-bold text-capitalize ">
+                                            <thead class="thead-dark border border-bottom">
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Quantity</th>
+                                                <th>Price</th>
+                                                <th>Action</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="order-list">
+
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="card-footer text-center">
+                                        <h4 class="font-weight-bold mb-2">Total Cost = <span
+                                                id="totalOrderCost">0</span>
+                                        </h4>
+                                        <button type="submit"
+
+                                                class="btn btn-primary d-block font-weight-bold disabled"
+                                                id="add-order-btn">
+                                            Add Order
+                                        </button>
+                                    </div>
 
                                 </div>
                             </div>

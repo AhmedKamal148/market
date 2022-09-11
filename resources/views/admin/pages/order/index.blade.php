@@ -56,13 +56,7 @@
                                             <th>Created At</th>
                                             @if(count($orders) >0)
                                                 <th class="text-info">
-                                                    Show
-                                                </th>
-                                                <th class="text-success">
-                                                    Edit
-                                                </th>
-                                                <th class="text-danger">
-                                                    Delete
+                                                    Actions
                                                 </th>
 
                                             @endif
@@ -81,17 +75,14 @@
                                                     <td class="text-success">
                                                         <a class="btn btn-outline-info font-weight-bold showProducts"
                                                            data-url="{{route('admin.order.products',[$order])}}"
-                                                           data-method="get"
-                                                        >
+                                                           data-method="get">
                                                             Show
                                                         </a>
-                                                    </td>
-                                                    <td class="text-success">
                                                         <a class="btn btn-outline-success font-weight-bold"
-                                                           href="{{route('admin.order.edit',[$order->client,$order])
-                                                           }}">Edit</a>
-                                                    </td>
-                                                    <td class="text-danger">
+                                                           href="{{route('admin.order.edit',[$order->client,$order])}}">
+                                                            Edit
+                                                        </a>
+
                                                         <form action="{{route('admin.order.destroy',$order)}}"
                                                               method="post">
                                                             @csrf

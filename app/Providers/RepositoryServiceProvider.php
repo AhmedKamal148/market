@@ -41,17 +41,14 @@ class RepositoryServiceProvider extends ServiceProvider
             'App\Http\Repositories\ClientRepo'
         );
         $this->app->bind(
-            'App\Http\Interfaces\OrderInterface',
-            'App\Http\Repositories\OrderRepo'
+            'App\Http\Interfaces\OrderClientInterface',
+            'App\Http\Repositories\OrderClientRepo'
         );
+
+
     }
 
-    /**
-     * Bootstrap services.
-     *
-     * @return void
-     */
-    //test Uploading
+
     public function boot()
     {
 

@@ -1,13 +1,13 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Dashboard\AuthController;
 use App\Http\Controllers\Dashboard\AdminController;
-use App\Http\Controllers\Dashboard\OrderController;
-use App\Http\Controllers\Dashboard\UsersController;
+use App\Http\Controllers\Dashboard\AuthController;
+use App\Http\Controllers\Dashboard\CategoryController;
+use App\Http\Controllers\Dashboard\client\OrderClientController;
 use App\Http\Controllers\Dashboard\ClientController;
 use App\Http\Controllers\Dashboard\ProductController;
-use App\Http\Controllers\Dashboard\CategoryController;
+use App\Http\Controllers\Dashboard\UsersController;
+use Illuminate\Support\Facades\Route;
 
 /******************************** Login ************************************/
 
@@ -37,16 +37,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], fu
 
     /******************************** Clients *********************************/
     Route::Resource('client', ClientController::class);
+    Route::resource('client.order', OrderClientController::class);
 
     /******************************** Orders *********************************/
-    // Route::group(['prefix' => 'order', 'as' => 'order.'], function () {
-    //     Route::get('', [OrderController::class, 'index'])->name('index');
-    //     Route::get('create/{client}', [OrderController::class, 'create'])->name('create');
-    //     Route::post('store/{client}', [OrderController::class, 'store'])->name('store');
-    //     Route::get('edit/{client}/{order}', [OrderController::class, 'edit'])->name('edit');
-    //     Route::put('update/{client}/{order}', [OrderController::class, 'update'])->name('update');
-    //     Route::delete('destroy/{order}', [OrderController::class, 'destroy'])->name('destroy');
-    //     Route::get('/{order}/products', [OrderController::class, 'products'])->name('products');
-    // });
-    Route::Resource('order.client', OrderController::class);
+
+
 });
+
