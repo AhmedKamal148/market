@@ -44,6 +44,10 @@ class RepositoryServiceProvider extends ServiceProvider
             'App\Http\Interfaces\OrderClientInterface',
             'App\Http\Repositories\OrderClientRepo'
         );
+        $this->app->bind(
+            'App\Http\Interfaces\OrderInterface',
+            'App\Http\Repositories\OrderRepo'
+        );
 
 
     }

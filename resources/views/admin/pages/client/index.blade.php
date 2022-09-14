@@ -91,7 +91,7 @@
                                                     <td>
                                                         @if(auth()->user()->hasPermission('create_orders'))
 
-                                                            <a href="#"
+                                                            <a href="{{route('admin.client.order.create',$client)}}"
                                                                class="btn btn-outline-info">Order</a>
                                                         @else
                                                             <a href="#"

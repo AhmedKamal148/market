@@ -7,6 +7,8 @@ let Product_Quantity = 1;
 
 
 $(document).ready(function () {
+
+    /******************** Global Events *************************/
     // when click on add-product-btn
     $('.add-product-btn').on('click', function (e) {
 
@@ -19,7 +21,7 @@ $(document).ready(function () {
             html = `<tr id="productRow-${productId}">
                         <td>${productName}</td>
                         <td>
-                            <input type="number" name="product[quantity]"  class="form-control-sm quantity" min="1" value="1">
+                            <input type="number" name="products[${productId}][quantity]"  class="form-control-sm quantity" min="1" value="1">
                         </td>
                         <td id="product_price-${productId}" class="product_price">${productPrice}</td>
                         <td><button class="btn btn-danger remove-product-btn" data-id="${productId}" ><i class=" fas fa-trash-restore "></i></button></td>
@@ -40,7 +42,7 @@ $(document).ready(function () {
 
         printOrderCost(productPriceElements);//Call of printOrderCost
 
-        addOrderAvailability(); // Call Of addOrderAvailability
+        checkAddOrder_btn_Availability(); // Call Of addOrderAvailability
 
 
         /***************** End Of Call Functions ********************/
@@ -53,7 +55,7 @@ $(document).ready(function () {
             calcProductCost(productId, productPrice);   // Call of calcProductCost
             printProductCost(productId, Product_Cost);  //Call of printProductCost
             printOrderCost(productPriceElements);  //Call of printOrderCost
-            addOrderAvailability(); // Call Of addOrderAvailability
+            checkAddOrder_btn_Availability(); // Call Of addOrderAvailability
 
         }); // end of  on change quantity
 
@@ -67,18 +69,30 @@ $(document).ready(function () {
 
             let productPriceElements = document.querySelectorAll('.product_price'); // Get  All Product Price <td> To Calc Total Order Cost
             printOrderCost(productPriceElements);//Call of printOrderCost
-            addOrderAvailability(); // Call Of addOrderAvailability
+            checkAddOrder_btn_Availability(); // Call Of addOrderAvailability
 
         });//end of remove-product-btn
+
 
         /********************* End of Events *********************/
 
     });//end of add-product-btn
 
-
     $(document).on('click', 'disabled', function (e) {
         e.preventDefault();
     }); // end of disabled btn
+
+    $('.showOrderProducts').on('click', function (e) {
+        e.preventDefault();
+        let url = $(this).data('url'),
+            mehtod = $(this).data('method');
+
+        showOrderProducts(url, mehtod);
+
+    }); // end of Show Order Products
+
+
+    /******************** End Of Global Events *************************/
 
 });//end of document ready
 
@@ -102,7 +116,7 @@ function printOrderCost(productPriceElements) {
     Order_Cost = 0;
 }// end of printOrderCost function
 
-function addOrderAvailability() {
+function checkAddOrder_btn_Availability() {
 
     if ($('#totalOrderCost').text() > 0) {
 
@@ -110,7 +124,20 @@ function addOrderAvailability() {
     } else {
         $('#add-order-btn').addClass('disabled');
     }
-}
+} // end of addOrder_btn_Availability
+
+function showOrderProducts(url, method) {
+    $.ajax({
+        url: url,
+        method: method,
+        success: function (data) {
+            $('.product_order_Invoice').empty().append(data);
+
+        }
+    });
+
+} // end of show orders products
+
 
 /************* End Of Functions *********************/
 

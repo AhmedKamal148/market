@@ -96,14 +96,14 @@
                 @endif
                 <!-- Orders -->
                 @if(auth()->user()->hasPermission('read_orders'))
-                    {{-- <li class="nav-item">
-                         <a href="{{route('admin.order.index')}}" class="nav-link ">
-                             <i class="nav-icon fab fa-shopify"></i>
-                             <p>
-                                 Orders
-                             </p>
-                         </a>
-                     </li>--}}
+                    <li class="nav-item">
+                        <a href="{{route('admin.order.index')}}" class="nav-link ">
+                            <i class="nav-icon fab fa-shopify"></i>
+                            <p>
+                                Orders
+                            </p>
+                        </a>
+                    </li>
                 @endif
             </ul>
         </nav>

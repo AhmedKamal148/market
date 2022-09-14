@@ -1,0 +1,19 @@
+.icon {
+    font-size: 25px;
+    margin: 0 5px;
+}
+
+.edit-icon {
+    color: #3bc50e;
+
+}
+
+.delete-icon {
+    color: #f10b35;
+
+}
+
+.show-icon {
+    color: #0886f1;
+
+}

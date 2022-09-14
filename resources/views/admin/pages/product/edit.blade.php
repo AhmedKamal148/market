@@ -60,6 +60,7 @@
                             <label for="purchase_price">Purchase Price</label>
                             <input name="purchase_price"
                                    type="number"
+                                   step="0.01"
                                    class="form-control"
                                    id="purchase_price"
                                    placeholder="Purchase Price"
@@ -70,6 +71,7 @@
                             <label for="sale_price">Sale Price</label>
                             <input name="sale_price"
                                    type="number"
+                                   step="0.01"
                                    class="form-control"
                                    id="sale_price"
                                    placeholder="Sale Price"

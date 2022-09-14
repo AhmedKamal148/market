@@ -43,7 +43,7 @@
                                     </div>
                                     <div class="card-body">
                                         @foreach($categories as $category)
-                                            <div class="card card-dark card-outline ">
+                                            <div class="card card-dark card-outline  overflow-hidden ">
                                                 <a class="d-block w-100 collapsed" data-toggle="collapse"
                                                    href="#{{$category->name}}">
                                                     <div class="card-header">
@@ -55,7 +55,7 @@
                                                 <div id="{{$category->name}}" class="collapse">
                                                     <div class="card-body">
                                                         <table
-                                                            class="table table-striped font-weight-bold text-capitalize ">
+                                                            class="table table-striped font-weight-bold text-capitalize text-wrap">
                                                             @if($category->product->count() > 0)
                                                                 <thead class="thead-dark">
                                                                 <tr>
@@ -69,7 +69,7 @@
                                                                 </thead>
                                                                 <tbody>
                                                                 @foreach($category->product as $product)
-                                                                    <tr class="align-items-center">
+                                                                    <tr class="">
                                                                         <td>{{$product->id}}</td>
                                                                         <td class="text-wrap">{{$product->name}}</td>
                                                                         <td>{{$product->sale_price}}</td>
@@ -102,7 +102,6 @@
                                                                 </tbody>
                                                         </table>
 
-
                                                     </div>
 
                                                 </div>
@@ -118,33 +117,37 @@
                                     <div class="card-header">
                                         <h3> The Orders</h3>
                                     </div>
-                                    <div class="card-body">
-                                        <table class="table table-striped font-weight-bold text-capitalize ">
-                                            <thead class="thead-dark border border-bottom">
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Quantity</th>
-                                                <th>Price</th>
-                                                <th>Action</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody id="order-list">
+                                    <form action="{{route('admin.client.order.store',[$client->id])}}"
+                                          method="post">
+                                        @csrf
+                                        <div class="card-body">
+                                            <table class="table table-striped font-weight-bold text-capitalize ">
+                                                <thead class="thead-dark border border-bottom">
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Quantity</th>
+                                                    <th>Price</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody id="order-list">
 
 
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="card-footer text-center">
-                                        <h4 class="font-weight-bold mb-2">Total Cost = <span
-                                                id="totalOrderCost">0</span>
-                                        </h4>
-                                        <button type="submit"
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="card-footer text-center">
+                                            <h4 class="font-weight-bold mb-2">Total Cost = <span
+                                                    id="totalOrderCost">0</span>
+                                            </h4>
+                                            <button type="submit"
+                                                    class="btn btn-primary d-block font-weight-bold disabled"
+                                                    id="add-order-btn">
+                                                Add Order
+                                            </button>
+                                        </div>
+                                    </form>
 
-                                                class="btn btn-primary d-block font-weight-bold disabled"
-                                                id="add-order-btn">
-                                            Add Order
-                                        </button>
-                                    </div>
 
                                 </div>
                             </div>

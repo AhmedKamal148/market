@@ -55,7 +55,7 @@
                                             <th>Total Price</th>
                                             <th>Created At</th>
                                             @if(count($orders) >0)
-                                                <th class="text-info">
+                                                <th>
                                                     Actions
                                                 </th>
 
@@ -63,39 +63,51 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($orders as $order)
-                                            <tr>
+                                        @if(count($orders) >0)
+                                            @foreach($orders as $order)
+                                                <tr>
 
-                                                <td>{{$order->id}}</td>
-                                                <td class="font-weight-bold text-capitalize">{{$order->Client->name}}</td>
-                                                <td>{{$order->total_price}}</td>
-                                                <td>{{$order->created_at->toFormattedDateString()}}</td>
-                                                @if(count($orders) > 0 && auth()->user()->hasPermission('update_orders'))
+                                                    <td>{{$order->id}}</td>
+                                                    <td class="font-weight-bold text-capitalize">{{$order->client->name}}</td>
+                                                    <td>{{$order->total_price}}</td>
+                                                    <td>{{$order->created_at->toFormattedDateString()}}</td>
 
-                                                    <td class="text-success">
-                                                        <a class="btn btn-outline-info font-weight-bold showProducts"
-                                                           data-url="{{route('admin.order.products',[$order])}}"
-                                                           data-method="get">
-                                                            Show
-                                                        </a>
-                                                        <a class="btn btn-outline-success font-weight-bold"
-                                                           href="{{route('admin.order.edit',[$order->client,$order])}}">
-                                                            Edit
-                                                        </a>
-
-                                                        <form action="{{route('admin.order.destroy',$order)}}"
-                                                              method="post">
-                                                            @csrf
-                                                            @method('delete')
-
-                                                            <button class="btn
-                                                            btn-outline-danger font-weight-bold">Delete
+                                                    @if(auth()->user()->hasPermission(['update_orders' ,'delete_orders' ,'read_orders']))
+                                                        <td class="d-flex text-center">
+                                                            <button
+                                                                data-url="{{route('admin.orders.products',$order->id)}}"
+                                                                data-method="get"
+                                                                class=" showOrderProducts btn btn-default">
+                                                                <i class="icon show-icon fas fa-eye"></i>
                                                             </button>
-                                                        </form>
-                                                    </td>
-                                                @endif
+
+                                                            <button class=" btn btn-default btn-sm mx-2"
+                                                                    href="{{route('admin.order.edit',[$order->client,$order])}}">
+                                                                <i class="icon edit-icon fas fa-edit"></i>
+                                                            </button>
+
+                                                            <form action="{{route('admin.order.destroy',$order)}}"
+                                                                  method="post">
+                                                                @csrf
+                                                                @method('delete')
+                                                                <button class="btn btn-default">
+                                                                    <i class=" icon delete-icon fas fa-trash"></i>
+                                                                </button>
+                                                            </form>
+
+
+                                                        </td>
+                                                    @endif
+                                                </tr>
+
+                                            @endforeach
+                                        @else
+                                            <tr>
+                                                <td colspan="4">
+                                                    <h4>No Records</h4>
+                                                </td>
                                             </tr>
-                                        @endforeach
+                                        @endif
                                         </tbody>
                                     </table>
                                 </div>
@@ -109,7 +121,7 @@
                         </div>
                         {{--product_order_Invoice--}}
                         <div class="col-md-4 product_order_Invoice">
-
+                            {{--Show Order Products  Invoice Here--}}
                         </div>
                     </div>
                 </div>
@@ -117,12 +129,11 @@
                 <div class="card-footer d-flex justify-content-between">
 
                     @if(auth()->user()->hasPermission('create_orders'))
-                        <a class="btn btn-lg btn-outline-dark font-weight-bold"
-                           href="{{route('admin.order.create',[$order->client])}}">
-                            <span> Create order</span>
-                            <i class="fas fa-plus"></i>
-                        </a>
-
+                        {{-- <a class="btn btn-lg btn-outline-dark font-weight-bold"
+                            href="{{route('admin.order.create',[$order->client])}}">
+                             <span> Create order</span>
+                             <i class="fas fa-plus"></i>
+                         </a>--}}
                     @else
                         <a class="btn btn-lg btn-outline-dark disabled font-weight-bold " href="#">Create order</a>
                     @endif

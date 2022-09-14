@@ -2,22 +2,18 @@
 
 namespace App\Http\Interfaces;
 
-use App\Models\Client;
-use App\Models\Order;
-use Illuminate\Http\Request;
-
 interface OrderClientInterface
 {
-    public function index(Request $request);
+    public function index($request);
 
-    public function create(Client $client);
+    public function create($client);
 
-    public function store(Request $request, Client $client);
+    public function store($request, $client);
 
-    public function edit(Client $client, Order $order);
+    public function edit($client, $order);
 
-    public function update(Request $request, Client $client, Order $order);
+    public function update($request, $client, $order);
 
-    public function destroy(Client $client, Order $order);
+    public function destroy($client, $order);
 
 }

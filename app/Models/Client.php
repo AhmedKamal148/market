@@ -10,10 +10,10 @@ class Client extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'phone', 'address'];
-    protected $casts = [
-        'phone' => 'array',
-    ];
+    protected $casts = ['phone' => 'array',];
 
+
+    /********************* Relations ***********************/
 
     public function orders()
     {

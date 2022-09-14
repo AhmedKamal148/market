@@ -59,6 +59,7 @@
                             <input name="purchase_price"
                                    required
                                    type="number"
+                                   step="0.01"
                                    class="form-control"
                                    id="purchase_price"
                                    placeholder="Purchase Price"
@@ -69,6 +70,7 @@
                             <input name="sale_price"
                                    required
                                    type="number"
+                                   step="0.01"
                                    class="form-control"
                                    id="sale_price"
                                    placeholder="Sale Price"
