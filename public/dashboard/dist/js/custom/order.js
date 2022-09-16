@@ -3,6 +3,7 @@ let Order_Cost = 0.00;
 let Product_Cost = 0.00;
 let Product_Quantity = 1;
 
+
 /************* End Of Global Variables  *********************/
 
 
@@ -24,7 +25,11 @@ $(document).ready(function () {
                             <input type="number" name="products[${productId}][quantity]"  class="form-control-sm quantity" min="1" value="1">
                         </td>
                         <td id="product_price-${productId}" class="product_price">${productPrice}</td>
-                        <td><button class="btn btn-danger remove-product-btn" data-id="${productId}" ><i class=" fas fa-trash-restore "></i></button></td>
+                        <td>
+                            <button class="btn btn-default remove-product-btn" data-id="${productId}" >
+                                <i class=" icon delete-icon fas fa-trash"></i>
+                            </button>
+                        </td>
                    </tr>`;
 
         $('#order-list').append(html); // end of append Order-row ===> (html) to order-list
@@ -48,7 +53,7 @@ $(document).ready(function () {
         /***************** End Of Call Functions ********************/
 
 
-        /************************ Events **************************/
+        /************************ Events When Add Product **************************/
         $('input.quantity').on('change', function (e) {
             Product_Quantity = e.target.value;
 
@@ -74,24 +79,56 @@ $(document).ready(function () {
         });//end of remove-product-btn
 
 
-        /********************* End of Events *********************/
+        /********************* End of Events  When Add Product  *********************/
 
     });//end of add-product-btn
+
+
+    /********************  Global Events *************************/
 
     $(document).on('click', 'disabled', function (e) {
         e.preventDefault();
     }); // end of disabled btn
 
-    $('.showOrderProducts').on('click', function (e) {
+    $('.showOrderProductsBtn').on('click', function (e) {
         e.preventDefault();
         let url = $(this).data('url'),
             mehtod = $(this).data('method');
 
         showOrderProducts(url, mehtod);
-
     }); // end of Show Order Products
 
+    $('input.quantity').on('change', function (e) {
+        Product_Quantity = e.target.value;
+        let product_id = $(this).data('id'),
+            product_price = $(this).data('price'),
+            productPriceElements = document.querySelectorAll('.product_price'); // Get  All Product Price <td> To Calc Total Order Cost
 
+
+        calcProductCost(product_id, product_price);   // Call of calcProductCost
+        printProductCost(product_id, Product_Cost);  //Call of printProductCost
+        printOrderCost(productPriceElements);  //Call of printOrderCost
+        checkAddOrder_btn_Availability();
+    }); // end of  on change quantity
+
+    $('.remove-product-btn').on('click', function (e) {
+        e.preventDefault();
+        let id = $(this).data('id');
+
+        $('#product-' + id).removeClass('btn-default disabled').addClass('btn-success').removeAttr('disabled');
+        $(this).closest('tr').remove(); // remove Product-row
+
+
+        let productPriceElements = document.querySelectorAll('.product_price'); // Get  All Product Price <td> To Calc Total Order Cost
+        printOrderCost(productPriceElements);//Call of printOrderCost
+        checkAddOrder_btn_Availability(); // Call Of addOrderAvailability
+
+    });//end of remove-product-btn
+
+    $(document).on('click', '#printInvoiceBtn', function (e) {
+        e.preventDefault();
+        $('.product_order_Invoice').printThis();
+    });//end of printInvoiceBtn
     /******************** End Of Global Events *************************/
 
 });//end of document ready
@@ -117,12 +154,13 @@ function printOrderCost(productPriceElements) {
 }// end of printOrderCost function
 
 function checkAddOrder_btn_Availability() {
+    let totalOrderCost = $('#totalOrderCost');
+    if (totalOrderCost.text() > 0) {
+        totalOrderCost.parent().next().removeAttr('disabled');
 
-    if ($('#totalOrderCost').text() > 0) {
-
-        $('#add-order-btn').removeClass('disabled')
     } else {
-        $('#add-order-btn').addClass('disabled');
+        totalOrderCost.parent().next().attr('disabled', 'disabled');
+
     }
 } // end of addOrder_btn_Availability
 
@@ -137,7 +175,6 @@ function showOrderProducts(url, method) {
     });
 
 } // end of show orders products
-
 
 /************* End Of Functions *********************/
 

@@ -4,7 +4,7 @@ namespace App\Http\Interfaces;
 
 interface OrderClientInterface
 {
-    public function index($request);
+   
 
     public function create($client);
 

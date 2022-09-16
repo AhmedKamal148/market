@@ -71,7 +71,7 @@
                                                                 @foreach($category->product as $product)
                                                                     <tr class="align-items-center">
                                                                         <td>{{$product->id}}</td>
-                                                                        <td class="text-wrap">{{$product->name}}</td>
+                                                                        <td>{{$product->name}}</td>
                                                                         <td>{{$product->sale_price}}</td>
                                                                         <td>{{$product->stock}}</td>
                                                                         <td>
@@ -119,9 +119,8 @@
                                         <h3> The Orders</h3>
                                     </div>
 
-                                    <form
-                                        action="{{route('admin.order.update',[$client,$order])}}"
-                                        method="post">
+                                    <form action="{{route('admin.client.order.update',[$client,$order])}}"
+                                          method="post">
                                         @csrf
                                         @method('put')
                                         <div class="card-body">
@@ -134,24 +133,28 @@
                                                     <th>Action</th>
                                                 </tr>
                                                 </thead>
-                                                <tbody id="tBody">
+                                                <tbody id="order-list">
                                                 @foreach($order->products as $product)
-                                                    <tr id="orderRow">
+                                                    <tr id="productRow-{{$product->id}}">
                                                         <td>{{$product->name}}</td>
                                                         <td>
                                                             <input type="number"
+                                                                   data-id="{{$product->id}}"
+                                                                   data-price="{{$product->sale_price}}"
                                                                    name="products[{{$product->id}}][quantity]"
-                                                                   class="form-control input-sm product-quantity"
-                                                                   min="1"
-                                                                   value="{{$product->pivot->quantity}}"/>
+                                                                   class="form-control-sm quantity" min="1"
+                                                                   value="{{$product->pivot->quantity}}">
                                                         </td>
-                                                        <td id="price"
-                                                            data-price="{{$product->sale_price}}">{{$product->sale_price * $product->pivot->quantity}}</td>
+                                                        <td id="product_price-{{$product->id}}" class="product_price">
+                                                            {{$product->sale_price * $product->pivot->quantity}}
+                                                        </td>
                                                         <td>
-                                                            <a href="#" class="btn btn-danger" id="deleteOrder"
-                                                               data-id="{{$product->id}}">
-                                                                <i class="fas fa-trash"></i>
-                                                            </a>
+                                                            <button class="btn btn-default remove-product-btn"
+                                                                    data-id="{{$product->id}}">
+                                                                <i class=" icon delete-icon fas fa-trash"></i>
+                                                            </button>
+
+
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -160,12 +163,13 @@
                                         </div>
                                         <div class="card-footer text-center">
                                             <h4 class="font-weight-bold mb-2">Total Cost =
-                                                <span id="totalCost">{{$order->total_price}}</span>
+                                                <span id="totalOrderCost">
+                                                    {{$order->total_price}}
+                                                </span>
                                             </h4>
                                             <button type="submit"
-                                                    class="btn btn-primary d-block font-weight-bold disabled"
-                                                    id="add-order-btn">Update
-                                                Order
+                                                    class="btn btn-primary d-block font-weight-bold "
+                                                    id="update-order-btn">Update Order
                                             </button>
                                         </div>
                                     </form>

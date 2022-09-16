@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Interfaces\AdminInterface;
-use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
@@ -15,43 +14,10 @@ class AdminController extends Controller
         return $this->adminInterface = $adminInterface;
     }
 
-    public function index(Request $request)
+    public function index()
     {
-        return view('admin.pages.home');
+        return $this->adminInterface->index();
     }
 
 
-    public function create()
-    {
-
-    }
-
-
-    public function store(Request $request)
-    {
-        //
-    }
-
-
-    public function show($id)
-    {
-        //
-    }
-
-
-    public function edit($id)
-    {
-        //
-    }
-
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-
-    public function destroy($id)
-    {
-        //
-    }
 }

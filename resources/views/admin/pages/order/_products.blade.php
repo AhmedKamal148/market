@@ -24,7 +24,9 @@
         @endforeach
         <tr>
             <td colspan="4">
-                <button class="btn btn-block btn-dark font-weight-bold printInvoice"> Print <i class="fas fa-print"></i>
+                <button class="btn  btn-block btn-dark font-weight-bold " id="printInvoiceBtn">
+                    Print
+                    <i class="fas fa-print"></i>
                 </button>
             </td>
         </tr>

@@ -50,7 +50,7 @@
                 <!-- Supervisors -->
                 @if(auth()->user()->hasPermission('read_users'))
                     <li class="nav-item">
-                        <a href="{{route('admin.users.index')}}" class="nav-link ">
+                        <a href="{{route('admin.user.index')}}" class="nav-link ">
                             <i class="nav-icon far fa-user"></i>
                             <p>
                                 Supervisors

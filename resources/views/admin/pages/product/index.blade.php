@@ -20,25 +20,11 @@
                 {{-- Strat Card Header --}}
                 <div class="card-header">
                     <form action="{{route('admin.product.index')}}" method="get">
-                        <div class="row d-flex justify-content-end">
-                            <div class="col-3">
-                                <div class="search_group">
-                                    <div class="input-group input-group-sm">
-                                        <input type="text" class="form-control" name="search"
-                                               placeholder="Search Products"
-                                               value="{{request()->search}}">
-                                        <div class="input-group-append">
-                                            <button type="submit" class="btn btn-primary">
-                                                <i class="fas fa-search"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-3 ">
+                        <div class="row d-flex ">
+                            <div class="col-6 ">
                                 <div class="select_group">
                                     <select name="category_id"
-                                            class=" font-weight-bold custom-select form-control-border b-3 border-primary">
+                                            class=" font-weight-bold custom-select form-control">
                                         <option value="" class="font-weight-bold">Select ALL</option>
                                         @foreach($categories as  $category)
                                             <option {{ request()->category_id == $category->id ? 'selected' : '' }}
@@ -50,11 +36,20 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="clearfix"></div>
+
+                            <div class="col-6">
+                                <div class="input-group">
+                                    <div class="form-outline">
+                                        <input type="search" name="search" id="search" class="form-control"
+                                               value="{{request()->search}}"/>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-
                     </form>
-
                 </div>
                 {{-- Strat Card Body --}}
                 <div class="card-body">
@@ -80,50 +75,54 @@
                                             <th>Description</th>
                                             <th>Image</th>
                                             @if(count($products) >0)
-                                                <th class="text-success">
-                                                    Edit
+                                                <th>
+                                                    Action
                                                 </th>
-                                                <th class="text-danger">
-                                                    Delete
-                                                </th>
+
                                             @endif
                                         </tr>
                                         </thead>
-                                        <tbody>
-                                        @foreach($products as $product)
-                                            <tr class="">
-                                                <td>{{$product->id}}</td>
-                                                <td class="text-nowrap">{{$product->name}}</td>
-                                                <td>{{$product->category->name}}</td>
-                                                <th>{{$product->purchase_price}}</th>
-                                                <th>{{$product->sale_price}}</th>
-                                                <th>{{$product->stock}}</th>
-                                                <th>{{$product->profit_percent}}</th>
-                                                <th>{{$product->description}}</th>
-                                                <th>
-                                                    <img src="{{asset($product->imageUrl)}}"
-                                                         width="60px"
-                                                         class="img-thumbnail"/>
-                                                </th>
-                                                {{-- Edit && Delete--}}
-                                                @if(count($products) > 0)
-                                                    <td class="text-success">
-                                                        <a class="btn btn-lg btn-outline-success font-weight-bold"
-                                                           href="{{route('admin.product.edit',$product)}}">Edit</a>
+                                        <tbody class="text-center">
+                                        @if(count($products) > 0)
+
+                                            @foreach($products as $product)
+                                                <tr>
+                                                    <td>{{$product->id}}</td>
+                                                    <td class="text-nowrap">{{$product->name}}</td>
+                                                    <td>{{$product->category->name}}</td>
+                                                    <td>{{$product->purchase_price}}</td>
+                                                    <td>{{$product->sale_price}}</td>
+                                                    <td>{{$product->stock}}</td>
+                                                    <td>{{$product->profit_percent}}</td>
+                                                    <td>{{$product->description}}</td>
+                                                    <td>
+                                                        <img src="{{asset($product->imageUrl)}}" width="60px"
+                                                             class="img-thumbnail"/>
                                                     </td>
-                                                    <td class="text-danger">
+                                                    {{-- Edit && Delete--}}
+                                                    <td class="d-flex ">
+                                                        <a class="btn btn-default mx-2"
+                                                           href="{{route('admin.product.edit',$product)}}">
+                                                            <i class="icon edit-icon fas fa-edit"></i>
+                                                        </a>
+
                                                         <form action="{{route('admin.product.destroy' , $product)}}"
                                                               method="post">
                                                             @csrf
                                                             @method('delete')
-                                                            <button class="btn btn-lg
-                                                            btn-outline-danger font-weight-bold">Delete
+                                                            <button class="btn btn-default">
+                                                                <i class="icon delete-icon fas fa-trash"></i>
                                                             </button>
                                                         </form>
                                                     </td>
-                                                @endif
+                                                </tr>
+                                            @endforeach
+                                        @else
+                                            <tr>
+                                                <td colspan="10"> No Data Found</td>
                                             </tr>
-                                        @endforeach
+                                        @endif
+
                                         </tbody>
                                     </table>
                                 </div>

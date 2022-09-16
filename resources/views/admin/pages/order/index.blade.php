@@ -73,18 +73,18 @@
                                                     <td>{{$order->created_at->toFormattedDateString()}}</td>
 
                                                     @if(auth()->user()->hasPermission(['update_orders' ,'delete_orders' ,'read_orders']))
-                                                        <td class="d-flex text-center">
-                                                            <button
+                                                        <td class="d-flex justify-content-center align-items-center">
+                                                            <a
                                                                 data-url="{{route('admin.orders.products',$order->id)}}"
                                                                 data-method="get"
-                                                                class=" showOrderProducts btn btn-default">
+                                                                class=" showOrderProductsBtn btn btn-default">
                                                                 <i class="icon show-icon fas fa-eye"></i>
-                                                            </button>
+                                                            </a>
 
-                                                            <button class=" btn btn-default btn-sm mx-2"
-                                                                    href="{{route('admin.order.edit',[$order->client,$order])}}">
+                                                            <a class=" btn btn-default  mx-2"
+                                                               href="{{route('admin.client.order.edit',[$order->client,$order])}}">
                                                                 <i class="icon edit-icon fas fa-edit"></i>
-                                                            </button>
+                                                            </a>
 
                                                             <form action="{{route('admin.order.destroy',$order)}}"
                                                                   method="post">

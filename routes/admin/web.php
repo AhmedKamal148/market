@@ -26,7 +26,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], fu
 
     /******************************** users ************************************/
 
-    Route::resource('users', UsersController::class);
+    Route::resource('user', UsersController::class);
 
     /******************************** Categories *******************************/
 

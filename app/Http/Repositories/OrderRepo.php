@@ -4,11 +4,14 @@ namespace App\Http\Repositories;
 
 
 use App\Http\Interfaces\OrderInterface;
+use App\Http\Traits\attachmentOrder;
 use App\Models\Order;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class OrderRepo implements OrderInterface
 {
+    use attachmentOrder;
+
     public function index($request)
     {
         if ($request->has('search')) {
@@ -32,12 +35,7 @@ class OrderRepo implements OrderInterface
 
     public function destroy($order)
     {
-        foreach ($order->products as $product) {
-            $product->update([
-                'stock' => $product->stock + $product->pivot->quantity
-            ]);
-        }
-        $order->delete();
+        $this->detachOrder($order);
         Alert::warning('Order Delete', 'Order Deleted Successfully!');
         return redirect(route('admin.order.index'));
 

@@ -140,8 +140,8 @@
                                             <h4 class="font-weight-bold mb-2">Total Cost = <span
                                                     id="totalOrderCost">0</span>
                                             </h4>
-                                            <button type="submit"
-                                                    class="btn btn-primary d-block font-weight-bold disabled"
+                                            <button type="submit" disabled
+                                                    class="btn btn-primary d-block font-weight-bold "
                                                     id="add-order-btn">
                                                 Add Order
                                             </button>
